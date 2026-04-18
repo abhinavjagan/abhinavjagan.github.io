@@ -1,23 +1,25 @@
-import SceneCanvas from "./SceneCanvas";
-import InteractivePretextBlock from "./InteractivePretextBlock";
+const skills = {
+  languages: ["JavaScript", "TypeScript", "Python", "Java", "C++"],
+  frontend: ["React", "Next.js", "Tailwind CSS", "HTML5", "CSS3"],
+  backend: ["Node.js", "Express", "PostgreSQL", "MongoDB", "GraphQL"],
+  tools: ["Git", "Docker", "AWS", "Vercel", "CI/CD"],
+};
 
 const experiences = [
   {
     company: "Cisco Systems",
-    role: "Software Developer, Distributed Systems organization",
+    role: "Software Developer, Distributed Systems",
     period: "Aug 2024 - Present",
     mode: "On-site",
     points: [
-      "Designed a next-generation ERSPAN solution using GUE encapsulation as a scalable alternative to GRE, leading end-to-end delivery for Microsoft-driven packet mirroring requirements with hardware-accelerated performance gains.",
-      "Led end-to-end delivery of egress traffic mirroring for Cisco 8000 (Silicon One) routers, helping achieve parity with NCS 5000 capabilities for SoftBank's migration while reducing delivery time by 60%.",
-      "Contributed to an AI-driven Infrastructure-as-a-Service initiative for deploying quantized ML models on Cisco routers, moving from concept to prototype in a 4-member core team and reaching customer evaluation.",
-      "Owned traffic mirroring feature delivery, debugging, and POC work across SPAN, Lawful Intercept, and NetFlow on Cisco 8000, including multi-platform topology bring-up for upcoming hardware.",
-      "Built scalable automation infrastructure and AI-powered internal tools, including a leadership metrics analyzer and a drag-and-drop traffic mirroring platform with MCP-based modular components.",
+      "Designed next-gen ERSPAN with GUE encapsulation to improve scalable packet mirroring on Cisco 8000 routers.",
+      "Led egress traffic mirroring delivery for SoftBank migration, reducing delivery time by 60%.",
+      "Built automation and AI-assisted internal tools for faster debugging and release execution.",
     ],
   },
   {
     company: "Cisco Systems",
-    role: "Technical Intern, Distributed Systems organization",
+    role: "Technical Intern, Distributed Systems",
     period: "Jan 2024 - Jun 2024",
     mode: "On-site",
     points: [
@@ -39,23 +41,23 @@ const experiences = [
 const projects = [
   {
     name: "Playlistify",
-    category: "Web Development",
+    category: "Web Product",
     summary:
-      "Built a Python and Flask product on top of the Spotify Web API that turns liked songs into shareable playlists with one click, closing a clear product usability gap.",
+      "Built a Flask + Spotify API product that turns liked songs into curated shareable playlists.",
     link: "https://github.com/abhinavjagan",
   },
   {
     name: "Remote Drone Surveillance",
-    category: "Machine Learning / Image Processing",
+    category: "ML + Computer Vision",
     summary:
-      "Designed a drone-based surveillance pipeline with Python, OpenCV, YOLO, and threshold-based activity analysis to detect, classify, and flag illegal actions in real time.",
+      "Built a drone surveillance pipeline with YOLO and OpenCV for suspicious activity detection.",
     link: "https://www.researchgate.net/publication/377547504_Detection_of_Suspicious_Activities_at_Remote_Locations_by_using_UAVs_and_Computer_Vision",
   },
   {
-    name: "Performance Assessment of Neural Radiance Fields and Photogrammetry",
+    name: "NeRF vs Photogrammetry Study",
     category: "3D Reconstruction Research",
     summary:
-      "Implemented and presented a comparative NeRF vs Photogrammetry study for 3D reconstruction of man-made and natural scenes at the ICAART conference.",
+      "Presented comparative NeRF and photogrammetry performance findings for realistic 3D scene reconstruction.",
     link: "https://www.researchgate.net/publication/378826735_Performance_Assessment_of_Neural_Radiance_Fields_NeRF_and_Photogrammetry_for_3D_Reconstruction_of_Man-Made_and_Natural_Features",
   },
 ];
@@ -67,185 +69,143 @@ const extracurriculars = [
   "Trekked the Himalayas and the world's largest cave ecosystem in Vietnam.",
 ];
 
-const skillGroups = [
-  {
-    title: "Languages",
-    skills: ["Python", "C++", "JavaScript", "TypeScript", "SQL"],
-  },
-  {
-    title: "Frontend",
-    skills: ["React", "Vite", "Tailwind CSS", "HTML", "CSS"],
-  },
-  {
-    title: "Backend & Systems",
-    skills: ["Node.js", "Flask", "Distributed Systems", "Automation", "MCP"],
-  },
-];
-
 function App() {
   return (
-    <div className="page-shell">
-      <SceneCanvas />
-      <div className="scene-tint" />
+    <div className="comic-shell" id="top">
+      <header className="top-nav panel">
+        <div className="logo">AP</div>
+        <nav>
+          <a href="#about">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#experience">Experience</a>
+          <a href="#projects">Projects</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </header>
 
-      <main className="comic-page">
-        <header className="top-nav">
-          <a className="brandmark" href="#top">
-            AP
-          </a>
-          <nav className="top-nav-links" aria-label="Section navigation">
-            <a href="#top">Home</a>
-            <a href="#experience">Experience</a>
-            <a href="#projects">Projects</a>
-            <a href="#education">Education</a>
-            <a href="#contact">Contact</a>
-          </nav>
+      <main className="comic-grid">
+        <section className="panel hero-panel">
+          <p className="tag">Hey, I'm</p>
+          <h1 className="hero-name">
+            <span className="hero-name-primary">ABHINAV</span>
+            <span className="hero-name-secondary">POLIMERA</span>
+          </h1>
+          <p className="hero-role">Software Engineer</p>
+          <p className="hero-copy">
+            I build distributed systems, AI-assisted developer tooling, and polished product
+            experiences that solve meaningful problems.
+          </p>
+          <div className="chip-row">
+            <span>US Citizen</span>
+            <span>No sponsorship required</span>
+          </div>
           <a
-            className="nav-cta"
+            className="action-btn"
             href="/assets/docs/Abhinav_resume___SDE___USA%20(2).pdf"
             target="_blank"
             rel="noreferrer"
           >
-            Resume
+            View Resume
           </a>
-        </header>
-
-        <section className="comic-panel hero-panel" id="top">
-          <p className="panel-tag">Hey, I&apos;m</p>
-          <h1 className="hero-title">
-            <span className="hero-title-top">ABHINAV</span>
-            <span className="hero-title-main">POLIMERA</span>
-          </h1>
-          <p className="hero-subtitle">
-            Software engineer building distributed systems, automation platforms, and AI-assisted
-            internal tools.
-          </p>
-          <InteractivePretextBlock
-            tone="magenta"
-            text="Router software. AI infrastructure. Product execution. Debugging under pressure. Build fast, ship clean."
-          />
-          <div className="cta-row">
-            <a className="button button-primary" href="#experience">
-              View Experience
-            </a>
-            <a
-              className="button button-secondary"
-              href="/assets/docs/Abhinav_resume___SDE___USA%20(2).pdf"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Open Resume
-            </a>
-          </div>
         </section>
 
-        <section className="comic-panel about-panel" id="about">
-          <p className="panel-tag">About Me</p>
-          <p className="intro">
-            I enjoy solving complex systems problems and shaping products that users can trust. I
-            like owning the full arc: design, implementation, debugging, and polished delivery.
+        <section className="panel splash-panel" aria-label="Comic artwork backdrop" />
+
+        <section className="panel" id="about">
+          <h2>About Me</h2>
+          <p>
+            I enjoy owning hard technical problems end-to-end: architecture, implementation,
+            debugging, and final delivery. I care about both engineering depth and product clarity.
           </p>
-          <ul className="meta-list">
-            <li>US citizen</li>
-            <li>Visa sponsorship not required</li>
-            <li>Open to full-time software roles in the USA</li>
+          <ul className="list-tight">
+            <li>Location: Dallas, TX</li>
+            <li>Email: helpdevverse@gmail.com</li>
+            <li>Open to full-time software engineering roles</li>
           </ul>
         </section>
 
-        <section className="comic-panel skills-panel" id="skills">
-          <p className="panel-tag">Skills</p>
-          <div className="skills-groups">
-            {skillGroups.map((group) => (
-              <article key={group.title} className="skill-group">
-                <h3>{group.title}</h3>
-                <div className="chip-list">
-                  {group.skills.map((skill) => (
-                    <span key={skill}>{skill}</span>
-                  ))}
-                </div>
-              </article>
-            ))}
+        <section className="panel" id="skills">
+          <h2>Skills</h2>
+          <div className="skills-columns">
+            <div>
+              <h3>Languages</h3>
+              <p>{skills.languages.join(" • ")}</p>
+              <h3>Frontend</h3>
+              <p>{skills.frontend.join(" • ")}</p>
+            </div>
+            <div>
+              <h3>Backend</h3>
+              <p>{skills.backend.join(" • ")}</p>
+              <h3>Tools</h3>
+              <p>{skills.tools.join(" • ")}</p>
+            </div>
           </div>
         </section>
 
-        <section className="comic-panel experience-panel" id="experience">
-          <p className="panel-tag">Experience</p>
-          <div className="timeline">
+        <section className="panel wide" id="experience">
+          <h2>Experience</h2>
+          <div className="stack">
             {experiences.map((experience) => (
-              <article className="timeline-card" key={`${experience.company}-${experience.role}`}>
-                <div className="timeline-meta">
-                  <p>{experience.company}</p>
-                  <span>{experience.period}</span>
-                  <span>{experience.mode}</span>
-                </div>
-                <div className="timeline-copy">
+              <article className="mini-card" key={`${experience.company}-${experience.role}`}>
+                <div className="mini-header">
                   <h3>{experience.role}</h3>
-                  <ul className="timeline-list">
-                    {experience.points.map((point) => (
-                      <li key={point}>{point}</li>
-                    ))}
-                  </ul>
+                  <span>{experience.period}</span>
                 </div>
+                <p className="mini-sub">
+                  {experience.company} • {experience.mode}
+                </p>
+                <ul className="list-tight">
+                  {experience.points.map((point) => (
+                    <li key={point}>{point}</li>
+                  ))}
+                </ul>
               </article>
             ))}
           </div>
         </section>
 
-        <section className="comic-panel projects-panel" id="projects">
-          <p className="panel-tag">Projects</p>
-          <div className="project-grid">
+        <section className="panel" id="projects">
+          <h2>Projects</h2>
+          <div className="stack">
             {projects.map((project) => (
-              <article className="project-card" key={project.name}>
-                <p className="card-kicker">{project.category}</p>
+              <article className="mini-card" key={project.name}>
+                <p className="mini-sub">{project.category}</p>
                 <h3>{project.name}</h3>
                 <p>{project.summary}</p>
-                <a className="project-link" href={project.link} target="_blank" rel="noreferrer">
-                  Open Link
+                <a href={project.link} target="_blank" rel="noreferrer">
+                  Open project
                 </a>
               </article>
             ))}
           </div>
         </section>
 
-        <section className="comic-panel education-panel" id="education">
-          <p className="panel-tag">Beyond Work</p>
-          <h3>Range outside engineering</h3>
-          <ul className="timeline-list">
+        <section className="panel" id="education">
+          <h2>Education</h2>
+          <p className="edu-title">B.Tech in Computer Science</p>
+          <p>Vellore Institute of Technology • 2017 - 2021</p>
+          <p>CGPA: 8.6 / 10</p>
+          <h3>Beyond Work</h3>
+          <ul className="list-tight">
             {extracurriculars.map((item) => (
               <li key={item}>{item}</li>
             ))}
           </ul>
         </section>
 
-        <section className="comic-panel contact-panel" id="contact">
-          <p className="panel-tag">Let&apos;s Connect</p>
-          <p>
-            Open to high-ownership software engineering roles across distributed systems, backend
-            infrastructure, AI tooling, and product-focused frontend work.
-          </p>
-          <div className="cta-row">
+        <section className="panel wide contact" id="contact">
+          <h2>Let's Connect</h2>
+          <p>Open to software engineering roles across backend, distributed systems, and AI tooling.</p>
+          <div className="contact-row">
+            <a href="mailto:helpdevverse@gmail.com">helpdevverse@gmail.com</a>
             <a
-              className="button button-primary"
-              href="/assets/docs/Abhinav_resume___SDE___USA%20(2).pdf"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Resume
-            </a>
-            <a
-              className="button button-secondary"
               href="https://www.linkedin.com/in/abhinav-jagan-polimera-411b431b1/"
               target="_blank"
               rel="noreferrer"
             >
               LinkedIn
             </a>
-            <a
-              className="button button-secondary"
-              href="https://github.com/abhinavjagan"
-              target="_blank"
-              rel="noreferrer"
-            >
+            <a href="https://github.com/abhinavjagan" target="_blank" rel="noreferrer">
               GitHub
             </a>
           </div>
