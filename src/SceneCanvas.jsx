@@ -40,6 +40,11 @@ function SceneCanvas() {
     let zoomOffset = 0;
     let sectionOffset = 0;
     let scrollProgress = 0;
+    let isDragging = false;
+    let lastPointerX = 0;
+    let lastPointerY = 0;
+    let userYaw = 0;
+    let userPitch = 0;
     const hemiLight = new THREE.HemisphereLight(0xffffff, 0x000000, 0.88);
     scene.add(hemiLight);
 
@@ -98,7 +103,7 @@ function SceneCanvas() {
 
     Promise.all([
       loadModel("/assets/models/miles_from_spider-man_across_the_spider_verse.glb", (model, animations) => {
-        model.scale.setScalar(5.1);
+        model.scale.setScalar(4.2);
         model.position.set(4.25, -4.35, 2.3);
         model.rotation.y = -Math.PI * 2.48;
         setModelMaterial(model, 0x2b060c);
@@ -123,6 +128,38 @@ function SceneCanvas() {
     const onPointerMove = (event) => {
       pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
       pointer.y = -((event.clientY / window.innerHeight) * 2 - 1);
+
+      if (!isDragging) {
+        return;
+      }
+
+      const deltaX = event.clientX - lastPointerX;
+      const deltaY = event.clientY - lastPointerY;
+      lastPointerX = event.clientX;
+      lastPointerY = event.clientY;
+
+      userYaw += deltaX * 0.006;
+      userPitch += deltaY * 0.0045;
+      userPitch = THREE.MathUtils.clamp(userPitch, -1.15, 1.15);
+    };
+
+    const onPointerDown = (event) => {
+      if (event.button !== 0) {
+        return;
+      }
+
+      const target = event.target;
+      if (target instanceof Element && target.closest("a, button, input, textarea, select")) {
+        return;
+      }
+
+      isDragging = true;
+      lastPointerX = event.clientX;
+      lastPointerY = event.clientY;
+    };
+
+    const onPointerUp = () => {
+      isDragging = false;
     };
 
     const onClick = () => {
@@ -176,7 +213,10 @@ function SceneCanvas() {
     });
 
     window.addEventListener("resize", onResize);
+    window.addEventListener("pointerdown", onPointerDown);
     window.addEventListener("pointermove", onPointerMove);
+    window.addEventListener("pointerup", onPointerUp);
+    window.addEventListener("pointercancel", onPointerUp);
     window.addEventListener("click", onClick);
     window.addEventListener("wheel", onWheel, { passive: true });
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -189,13 +229,13 @@ function SceneCanvas() {
       const delta = clock.getDelta();
       const elapsed = clock.getElapsedTime();
       const sectionTargets = {
-        top: { x: 3.92, y: -2.22, z: 1.18, rotY: -7.72, rotX: 0.03, scale: 0.92 },
-        about: { x: 3.74, y: -2.34, z: 1.08, rotY: -7.6, rotX: 0.02, scale: 0.96 },
-        education: { x: 4.02, y: -2.24, z: 1.24, rotY: -7.8, rotX: 0.02, scale: 1 },
-        experience: { x: 4.12, y: -2.12, z: 1.3, rotY: -7.94, rotX: 0.03, scale: 1.06 },
-        projects: { x: 3.64, y: -2.28, z: 1.14, rotY: -7.54, rotX: 0.02, scale: 1.12 },
-        extracurriculars: { x: 4.08, y: -2.18, z: 1.26, rotY: -7.88, rotX: 0.02, scale: 1.18 },
-        contact: { x: 3.88, y: -2.32, z: 1.18, rotY: -7.74, rotX: 0.02, scale: 1.22 },
+        top: { x: 3.92, y: -2.22, z: 1.18, rotY: -7.72, rotX: 0.03, scale: 0.76 },
+        about: { x: 3.74, y: -2.34, z: 1.08, rotY: -7.6, rotX: 0.02, scale: 0.8 },
+        education: { x: 4.02, y: -2.24, z: 1.24, rotY: -7.8, rotX: 0.02, scale: 0.84 },
+        experience: { x: 4.12, y: -2.12, z: 1.3, rotY: -7.94, rotX: 0.03, scale: 0.9 },
+        projects: { x: 3.64, y: -2.28, z: 1.14, rotY: -7.54, rotX: 0.02, scale: 0.96 },
+        extracurriculars: { x: 4.08, y: -2.18, z: 1.26, rotY: -7.88, rotX: 0.02, scale: 1.02 },
+        contact: { x: 3.88, y: -2.32, z: 1.18, rotY: -7.74, rotX: 0.02, scale: 1.06 },
       };
       const activeTarget = sectionTargets[modelState.activeSection] ?? sectionTargets.top;
 
@@ -222,10 +262,14 @@ function SceneCanvas() {
       group.position.z = THREE.MathUtils.lerp(group.position.z, activeTarget.z, 0.08);
       group.rotation.y = THREE.MathUtils.lerp(
         group.rotation.y,
-        activeTarget.rotY + Math.sin(elapsed * 0.22) * 0.08 + pointer.x * 0.18,
+        activeTarget.rotY + userYaw + Math.sin(elapsed * 0.22) * 0.08 + pointer.x * 0.18,
         0.08,
       );
-      group.rotation.x = THREE.MathUtils.lerp(group.rotation.x, activeTarget.rotX + pointer.y * 0.05, 0.08);
+      group.rotation.x = THREE.MathUtils.lerp(
+        group.rotation.x,
+        activeTarget.rotX + userPitch + pointer.y * 0.05,
+        0.08,
+      );
       const scrollScaleBoost = THREE.MathUtils.lerp(0, 0.26, scrollProgress);
       const targetScale = activeTarget.scale + scrollScaleBoost + pulse * 0.03;
       group.scale.x = THREE.MathUtils.lerp(group.scale.x, targetScale, 0.08);
@@ -256,7 +300,10 @@ function SceneCanvas() {
     return () => {
       window.cancelAnimationFrame(animationFrameId);
       window.removeEventListener("resize", onResize);
+      window.removeEventListener("pointerdown", onPointerDown);
       window.removeEventListener("pointermove", onPointerMove);
+      window.removeEventListener("pointerup", onPointerUp);
+      window.removeEventListener("pointercancel", onPointerUp);
       window.removeEventListener("click", onClick);
       window.removeEventListener("wheel", onWheel);
       window.removeEventListener("scroll", onScroll);
