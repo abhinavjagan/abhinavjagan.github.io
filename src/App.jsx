@@ -67,79 +67,109 @@ const extracurriculars = [
   "Trekked the Himalayas and the world's largest cave ecosystem in Vietnam.",
 ];
 
+const skillGroups = [
+  {
+    title: "Languages",
+    skills: ["Python", "C++", "JavaScript", "TypeScript", "SQL"],
+  },
+  {
+    title: "Frontend",
+    skills: ["React", "Vite", "Tailwind CSS", "HTML", "CSS"],
+  },
+  {
+    title: "Backend & Systems",
+    skills: ["Node.js", "Flask", "Distributed Systems", "Automation", "MCP"],
+  },
+];
+
 function App() {
   return (
     <div className="page-shell">
       <SceneCanvas />
       <div className="scene-tint" />
 
-      <main className="content">
-        <aside className="sidebar">
+      <main className="comic-page">
+        <header className="top-nav">
           <a className="brandmark" href="#top">
             AP
           </a>
-          <nav className="side-nav" aria-label="Section navigation">
-            <a href="#top">Intro</a>
-            <a href="#experience">Work</a>
-            <a href="#projects">Build</a>
-            <a href="#extracurriculars">Beyond</a>
-            <a href="#contact">Reach</a>
+          <nav className="top-nav-links" aria-label="Section navigation">
+            <a href="#top">Home</a>
+            <a href="#experience">Experience</a>
+            <a href="#projects">Projects</a>
+            <a href="#education">Education</a>
+            <a href="#contact">Contact</a>
           </nav>
           <a
-            className="sidebar-cta"
+            className="nav-cta"
             href="/assets/docs/Abhinav_resume___SDE___USA%20(2).pdf"
             target="_blank"
             rel="noreferrer"
           >
-            CV
+            Resume
           </a>
-        </aside>
+        </header>
 
-        <section className="hero-restored" id="top">
-          <div className="hero-copy">
-            <h1 className="hero-title">
-              <span className="hero-title-top">ABHINAV</span>
-              <span className="hero-title-main">POLIMERA</span>
-            </h1>
-            <ul className="hero-bullets">
-              <li>US citizen</li>
-              <li>Visa sponsorship not required</li>
-            </ul>
-            <p className="hero-subtitle">
-              Product-minded engineer building distributed systems, router software, automation
-              platforms, and AI-assisted internal tools.
-            </p>
-            <p className="intro">
-              I like owning difficult technical work end to end, from design and debugging to
-              developer experience and polished delivery. This version leans into a darker,
-              cleaner portfolio language with one focal 3D model and stronger editorial
-              structure.
-            </p>
-            <div className="cta-row">
-              <a className="button button-primary" href="#experience">
-                View Experience
-              </a>
-              <a
-                className="button button-secondary"
-                href="/assets/docs/Abhinav_resume___SDE___USA%20(2).pdf"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Open Resume
-              </a>
-            </div>
+        <section className="comic-panel hero-panel" id="top">
+          <p className="panel-tag">Hey, I&apos;m</p>
+          <h1 className="hero-title">
+            <span className="hero-title-top">ABHINAV</span>
+            <span className="hero-title-main">POLIMERA</span>
+          </h1>
+          <p className="hero-subtitle">
+            Software engineer building distributed systems, automation platforms, and AI-assisted
+            internal tools.
+          </p>
+          <InteractivePretextBlock
+            tone="magenta"
+            text="Router software. AI infrastructure. Product execution. Debugging under pressure. Build fast, ship clean."
+          />
+          <div className="cta-row">
+            <a className="button button-primary" href="#experience">
+              View Experience
+            </a>
+            <a
+              className="button button-secondary"
+              href="/assets/docs/Abhinav_resume___SDE___USA%20(2).pdf"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Open Resume
+            </a>
           </div>
         </section>
 
-        <section className="timeline-section" id="experience">
-          <div className="section-heading">
-            <p className="panel-kicker">Work</p>
-            <h2>Distributed systems, router software, and AI-backed execution.</h2>
-            <InteractivePretextBlock
-              tone="magenta"
-              text="Packet mirroring. GUE encapsulation. Cisco 8000. SoftBank migration. AI infrastructure. Router OS delivery."
-            />
+        <section className="comic-panel about-panel" id="about">
+          <p className="panel-tag">About Me</p>
+          <p className="intro">
+            I enjoy solving complex systems problems and shaping products that users can trust. I
+            like owning the full arc: design, implementation, debugging, and polished delivery.
+          </p>
+          <ul className="meta-list">
+            <li>US citizen</li>
+            <li>Visa sponsorship not required</li>
+            <li>Open to full-time software roles in the USA</li>
+          </ul>
+        </section>
+
+        <section className="comic-panel skills-panel" id="skills">
+          <p className="panel-tag">Skills</p>
+          <div className="skills-groups">
+            {skillGroups.map((group) => (
+              <article key={group.title} className="skill-group">
+                <h3>{group.title}</h3>
+                <div className="chip-list">
+                  {group.skills.map((skill) => (
+                    <span key={skill}>{skill}</span>
+                  ))}
+                </div>
+              </article>
+            ))}
           </div>
+        </section>
+
+        <section className="comic-panel experience-panel" id="experience">
+          <p className="panel-tag">Experience</p>
           <div className="timeline">
             {experiences.map((experience) => (
               <article className="timeline-card" key={`${experience.company}-${experience.role}`}>
@@ -161,15 +191,8 @@ function App() {
           </div>
         </section>
 
-        <section className="projects-section" id="projects">
-          <div className="section-heading">
-            <p className="panel-kicker">Projects</p>
-            <h2>Applied product thinking, research, and machine intelligence.</h2>
-            <InteractivePretextBlock
-              tone="blue"
-              text="Spotify API. Flask product design. Drone surveillance. YOLO detection. NeRF research. 3D reconstruction."
-            />
-          </div>
+        <section className="comic-panel projects-panel" id="projects">
+          <p className="panel-tag">Projects</p>
           <div className="project-grid">
             {projects.map((project) => (
               <article className="project-card" key={project.name}>
@@ -184,51 +207,45 @@ function App() {
           </div>
         </section>
 
-        <section className="timeline-section" id="extracurriculars">
-          <div className="section-heading">
-            <p className="panel-kicker">Beyond Work</p>
-            <h2>Competitive discipline, visual craft, and adventure off the clock.</h2>
-            <InteractivePretextBlock
-              tone="cyan"
-              text="State-level sport. Karate training. Visual design. Photography. Himalayas. Vietnam cave expedition."
-            />
-          </div>
-          <article className="timeline-card extracurricular-card">
-            <div className="timeline-meta">
-              <p>Extracurriculars</p>
-              <span>Discipline + creativity</span>
-              <span>Outside engineering</span>
-            </div>
-            <div className="timeline-copy">
-              <h3>How I build range beyond software.</h3>
-              <ul className="timeline-list">
-                {extracurriculars.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </div>
-          </article>
+        <section className="comic-panel education-panel" id="education">
+          <p className="panel-tag">Beyond Work</p>
+          <h3>Range outside engineering</h3>
+          <ul className="timeline-list">
+            {extracurriculars.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
         </section>
 
-        <section className="contact-band" id="contact">
-          <p className="panel-kicker">Contact</p>
-          <h2>Open to high-ownership software engineering roles.</h2>
-          <InteractivePretextBlock
-            tone="red"
-            text="Distributed systems. AI tooling. Product engineering. Internships. Full-time software roles. Build with intent."
-          />
+        <section className="comic-panel contact-panel" id="contact">
+          <p className="panel-tag">Let&apos;s Connect</p>
           <p>
-            Open to software engineering opportunities in distributed systems, backend
+            Open to high-ownership software engineering roles across distributed systems, backend
             infrastructure, AI tooling, and product-focused frontend work.
           </p>
           <div className="cta-row">
-            <a className="button button-primary" href="/assets/docs/Abhinav_resume___SDE___USA%20(2).pdf" target="_blank" rel="noreferrer">
+            <a
+              className="button button-primary"
+              href="/assets/docs/Abhinav_resume___SDE___USA%20(2).pdf"
+              target="_blank"
+              rel="noreferrer"
+            >
               Resume
             </a>
-            <a className="button button-secondary" href="https://www.linkedin.com/in/abhinav-jagan-polimera-411b431b1/" target="_blank" rel="noreferrer">
+            <a
+              className="button button-secondary"
+              href="https://www.linkedin.com/in/abhinav-jagan-polimera-411b431b1/"
+              target="_blank"
+              rel="noreferrer"
+            >
               LinkedIn
             </a>
-            <a className="button button-secondary" href="https://github.com/abhinavjagan" target="_blank" rel="noreferrer">
+            <a
+              className="button button-secondary"
+              href="https://github.com/abhinavjagan"
+              target="_blank"
+              rel="noreferrer"
+            >
               GitHub
             </a>
           </div>
