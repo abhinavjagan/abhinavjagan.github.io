@@ -1,284 +1,199 @@
-:root {
-  --bg: #06040f;
-  --panel: rgba(14, 10, 32, 0.86);
-  --panel-border: #7f2bff;
-  --text: #f4f6ff;
-  --muted: #c6c4df;
-  --hot-pink: #ff2d86;
-  --neon-blue: #43a7ff;
-  --neon-cyan: #18f0ff;
-}
-
 * {
   box-sizing: border-box;
 }
 
+:root {
+  --palette-hot-pink: #ff1973;
+  --palette-neon-cyan: #00ffe7;
+  --palette-crimson: #e20b17;
+  --palette-indigo: #3a0ca3;
+  --palette-midnight: #03071e;
+}
+
+@font-face {
+  font-family: "Bitcount Grid Double";
+  src: url("/assets/fonts/Bitcount_Grid_Double/BitcountGridDouble-Regular.ttf")
+    format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Nabla";
+  src: url("/assets/fonts/Nabla-Regular-VariableFont_EDPT,EHLT.ttf")
+    format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Bangers";
+  src: url("/assets/fonts/Bangers-Regular.ttf")
+    format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Jersey 10";
+  src: url("/assets/fonts/Jersey10-Regular.ttf")
+    format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Nutty Noisses";
+  src: url("/assets/fonts/Nutty Noisses.otf")
+    format("opentype");
+  font-display: swap;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
 body {
-  margin: 0;
-  color: var(--text);
-  font-family: "Open Sans Condensed Bold", Arial, sans-serif;
-  background:
-    linear-gradient(rgba(2, 0, 10, 0.8), rgba(2, 0, 10, 0.9)),
-    url("/assets/images/comic-reference.png") center top / cover no-repeat fixed;
+  background: #000;
+  color: #c6c6c6;
+  font-family: "Bitcount Grid Double", monospace;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.comic-shell {
-  min-height: 100vh;
-  padding: 1rem;
-}
-
-.top-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-
-.logo {
-  font-family: "Nutty Noisses", cursive;
-  color: var(--hot-pink);
-  font-size: 2rem;
-  letter-spacing: 0.1em;
-  text-shadow: 0 0 12px rgba(255, 45, 134, 0.8);
-}
-
-.top-nav nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.7rem;
-}
-
-.top-nav nav a {
-  font-family: "Jersey 10", sans-serif;
-  font-size: 1.15rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 0.3rem 0.6rem;
-  border: 1px solid rgba(24, 240, 255, 0.45);
-  border-radius: 999px;
-  background: rgba(20, 14, 44, 0.8);
-}
-
-.comic-grid {
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: 0.9rem;
-}
-
-.panel {
-  border: 2px solid var(--panel-border);
-  background:
-    linear-gradient(160deg, rgba(255, 45, 134, 0.08), rgba(67, 167, 255, 0.06)),
-    var(--panel);
-  padding: 1rem;
+.story-page {
   position: relative;
+  width: 100%;
+  min-height: 100%;
+  background: #000;
+}
+
+.story-fixed-layer {
+  position: fixed;
+  inset: 0;
   overflow: hidden;
-  box-shadow:
-    0 0 0 1px rgba(255, 45, 134, 0.3) inset,
-    0 14px 30px rgba(0, 0, 0, 0.45);
-  clip-path: polygon(0 3%, 97% 0, 100% 95%, 3% 100%);
 }
 
-.hero-panel {
-  grid-column: span 5;
+.binary-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  position: relative;
 }
 
-.splash-panel {
-  grid-column: span 7;
-  min-height: 360px;
-  background:
-    linear-gradient(rgba(8, 5, 18, 0.44), rgba(8, 5, 18, 0.44)),
-    url("/assets/images/comic-reference.png") center 30% / cover no-repeat;
+.dynamic-flow-host {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
 }
 
-.tag {
-  display: inline-block;
-  margin: 0 0 0.7rem;
-  padding: 0.2rem 0.8rem;
-  background: rgba(67, 167, 255, 0.2);
-  border: 1px solid rgba(67, 167, 255, 0.85);
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-family: "Jersey 10", sans-serif;
+.dynamic-flow {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
 
-.hero-name {
+.dynamic-flow-line {
+  position: absolute;
   margin: 0;
-  display: grid;
-  line-height: 0.88;
-}
-
-.hero-name-primary {
-  font-family: "Nutty Noisses", cursive;
-  font-size: clamp(3.8rem, 8vw, 6rem);
-  color: #ffffff;
-  -webkit-text-stroke: 2px #0f042d;
-  text-shadow:
-    0 0 24px rgba(255, 45, 134, 0.9),
-    3px 3px 0 #1f0a52;
-}
-
-.hero-name-secondary {
-  font-family: "Jersey 10", sans-serif;
-  font-size: clamp(2.2rem, 5vw, 3.8rem);
-  color: var(--hot-pink);
-  letter-spacing: 0.06em;
-  text-shadow: 0 0 10px rgba(255, 45, 134, 0.8);
-}
-
-.hero-role {
-  margin: 0.8rem 0 0.4rem;
-  font-family: "Jersey 10", sans-serif;
-  text-transform: uppercase;
+  color: #7a7a7a;
+  font-family: "Bitcount Grid Double", monospace;
+  font-size: clamp(1.3rem, 3.8vw, 3.25rem);
+  line-height: 1;
   letter-spacing: 0.12em;
-  color: var(--neon-cyan);
+  white-space: nowrap;
+  user-select: none;
+  will-change: left, text-indent, opacity;
+  transition: left 90ms linear, text-indent 90ms linear, opacity 120ms ease-out;
 }
 
-.hero-copy {
-  margin: 0.5rem 0 0.9rem;
-  color: var(--muted);
-  line-height: 1.6;
-}
-
-.chip-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.45rem;
-  margin-bottom: 0.9rem;
-}
-
-.chip-row span {
-  border: 1px solid rgba(255, 45, 134, 0.7);
-  background: rgba(255, 45, 134, 0.14);
-  padding: 0.25rem 0.55rem;
-  font-size: 0.86rem;
-}
-
-.action-btn {
+.dynamic-flow-chunk {
   display: inline-block;
-  padding: 0.7rem 1.1rem;
-  border: 2px solid #ff5aa6;
-  background: linear-gradient(135deg, #ff2d86, #5c24d6);
-  font-family: "Jersey 10", sans-serif;
-  font-size: 1.08rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  will-change: transform, opacity;
+  transition: transform 110ms ease-out, opacity 140ms ease-out;
 }
 
-.panel h2 {
-  margin: 0 0 0.7rem;
-  font-family: "Jersey 10", sans-serif;
-  font-size: clamp(1.8rem, 3vw, 2.5rem);
-  letter-spacing: 0.05em;
-  color: #ffffff;
-  text-shadow: 0 0 12px rgba(67, 167, 255, 0.65);
+.scroll-scene {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
 }
 
-.panel h3 {
-  margin: 0.6rem 0 0.3rem;
-  font-family: "Jersey 10", sans-serif;
-  color: var(--neon-cyan);
+.scroll-scene-wrap {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.scroll-scene-illustration {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: min(48vw, 36rem);
+  object-fit: contain;
+  object-position: left center;
+  opacity: 0;
+  transform: translate3d(-70px, 0, 0) scale(0.94);
+  transform-origin: left center;
+  filter: contrast(1.1) brightness(0.92);
+  z-index: 1;
+}
+
+.identity-lockup {
+  position: absolute;
+  left: clamp(22rem, 47vw, 41rem);
+  right: 2vw;
+  bottom: 33vh;
+  opacity: 0;
+  transform: translate3d(40px, 90px, 0);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.identity-prefix {
+  color: var(--palette-neon-cyan);
+  font-family: "Jersey 10", monospace;
+  font-size: clamp(4.2rem, 7.4vw, 7.8rem);
+  line-height: 0.95;
   letter-spacing: 0.04em;
+  text-transform: none;
 }
 
-.panel p {
-  margin: 0;
-  color: var(--muted);
-  line-height: 1.55;
+.identity-name {
+  margin-top: 0.7rem;
+  width: 100%;
+  color: var(--palette-crimson);
+  font-family: "Nutty Noisses", cursive;
+  font-size: clamp(5.8rem, 10.6vw, 10.6rem);
+  line-height: 0.78;
+  letter-spacing: 0.03em;
+  -webkit-text-stroke: 2px var(--palette-indigo);
+  text-shadow:
+    0 0 0 var(--palette-indigo),
+    2px 2px 0 var(--palette-indigo),
+    -2px 2px 0 var(--palette-indigo),
+    2px -2px 0 var(--palette-indigo),
+    -2px -2px 0 var(--palette-indigo);
 }
 
-.list-tight {
-  margin: 0.6rem 0 0;
-  padding-left: 1rem;
-  display: grid;
-  gap: 0.35rem;
-  color: var(--muted);
+.identity-name span {
+  display: block;
+  width: 100%;
 }
 
-.skills-columns {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.9rem;
+.story-scroll-track {
+  position: relative;
+  z-index: 1;
+  pointer-events: none;
 }
 
-.stack {
-  display: grid;
-  gap: 0.7rem;
-}
-
-.mini-card {
-  border: 1px solid rgba(67, 167, 255, 0.5);
-  background: rgba(7, 5, 20, 0.72);
-  padding: 0.8rem;
-}
-
-.mini-header {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  align-items: baseline;
-}
-
-.mini-header span,
-.mini-sub {
-  color: #9cc7ff;
-  font-size: 0.88rem;
-}
-
-.mini-card a {
-  color: var(--hot-pink);
-  font-family: "Jersey 10", sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-.wide {
-  grid-column: span 12;
-}
-
-#about,
-#skills,
-#projects,
-#education {
-  grid-column: span 6;
-}
-
-.contact-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.8rem;
-  margin-top: 0.8rem;
-}
-
-.contact-row a {
-  border: 1px solid rgba(24, 240, 255, 0.7);
-  padding: 0.5rem 0.8rem;
-  background: rgba(24, 240, 255, 0.1);
-}
-
-.edu-title {
-  font-size: 1.12rem;
-  color: #ffffff !important;
-}
-
-@media (max-width: 980px) {
-  .hero-panel,
-  .splash-panel,
-  #about,
-  #skills,
-  #projects,
-  #education,
-  .wide {
-    grid-column: span 12;
-  }
-
-  .skills-columns {
-    grid-template-columns: 1fr;
-  }
+.story-panel {
+  min-height: 108vh;
 }
