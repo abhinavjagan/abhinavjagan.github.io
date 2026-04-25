@@ -3,11 +3,14 @@ import * as THREE from "three";
 import { publicUrl } from "../../lib/publicUrl.js";
 import PALETTE from "../../shared/palette.js";
 
+/** First portion of total scroll (0–1) mapped to the full story step arc — lower = snappier “ALRIGHT” beats. */
+const STORY_STEPS_SCROLL_FRAC = 0.42;
+
 const STORY_STEPS = [
   {
     text: "ALRIGHT",
     anchor: { x: -1.08, y: 1 },
-    scale: 1.18,
+    scale: 1.52,
     twist: -0.08,
   },
   {
@@ -34,6 +37,9 @@ const FONT_FAMILY = '"Bangers", sans-serif';
 const FONT_LOAD = '400 72px "Bangers"';
 const ILLUSTRATION_URL = publicUrl("assets/media/spiderpunk-black.jpeg");
 
+/** Bangs read as emphasis — coral accent on cyan/crimson. */
+const EXCLAMATION_COLOR = "#FF7F50";
+
 function clamp01(value) {
   return Math.min(1, Math.max(0, value));
 }
@@ -57,9 +63,11 @@ function createTextTexture(text, minViewportDim, pixelRatio) {
     fontSize = Math.round(Math.min(Math.max(minViewportDim * mult, 56), 196));
   } else {
     const longLine = text.length > 18;
+    const shortShout = text === "ALRIGHT";
     const longMult = longLine ? (compact ? 0.058 : 0.052) : compact ? 0.078 : 0.074;
+    const minPx = longLine ? 40 : shortShout ? 62 : 52;
     fontSize = Math.round(
-      Math.min(Math.max(minViewportDim * longMult, longLine ? 40 : 52), longLine ? 128 : 200),
+      Math.min(Math.max(minViewportDim * longMult, minPx), longLine ? 128 : 200),
     );
   }
   const paddingX = Math.round(56 + fontSize * 0.52);
@@ -69,8 +77,11 @@ function createTextTexture(text, minViewportDim, pixelRatio) {
   const canvas = document.createElement("canvas");
   const measureCtx = canvas.getContext("2d");
   measureCtx.font = `400 ${fontSize}px ${FONT_FAMILY}`;
-  const metrics = measureCtx.measureText(text);
-  const logicalW = Math.ceil(metrics.width + paddingX * 2);
+  let totalW = 0;
+  for (let i = 0; i < text.length; i += 1) {
+    totalW += measureCtx.measureText(text[i]).width;
+  }
+  const logicalW = Math.ceil(totalW + paddingX * 2);
   const logicalH = Math.ceil(fontSize + paddingY * 2);
 
   canvas.width = Math.ceil(logicalW * dpr);
@@ -81,9 +92,15 @@ function createTextTexture(text, minViewportDim, pixelRatio) {
   ctx.clearRect(0, 0, logicalW, logicalH);
   ctx.font = `400 ${fontSize}px ${FONT_FAMILY}`;
   ctx.textBaseline = "middle";
-  ctx.textAlign = "center";
-  ctx.fillStyle = fillColor;
-  ctx.fillText(text, logicalW / 2, logicalH / 2);
+  ctx.textAlign = "left";
+  const cy = logicalH / 2;
+  let x = logicalW / 2 - totalW / 2;
+  for (let i = 0; i < text.length; i += 1) {
+    const ch = text[i];
+    ctx.fillStyle = ch === "!" ? EXCLAMATION_COLOR : fillColor;
+    ctx.fillText(ch, x, cy);
+    x += ctx.measureText(ch).width;
+  }
 
   const texture = new THREE.CanvasTexture(canvas);
   texture.needsUpdate = true;
@@ -130,12 +147,14 @@ function ScrollStoryScene() {
   const mountRef = useRef(null);
   const imageRef = useRef(null);
   const identityMotionRef = useRef(null);
+  const andIMotionRef = useRef(null);
 
   useEffect(() => {
     const mount = mountRef.current;
     const image = imageRef.current;
     const identityMotion = identityMotionRef.current;
-    if (!mount || !image || !identityMotion) {
+    const andIMotion = andIMotionRef.current;
+    if (!mount || !image || !identityMotion || !andIMotion) {
       return undefined;
     }
 
@@ -205,7 +224,17 @@ function ScrollStoryScene() {
       sprite.scale.set(fittedWidth, fittedHeight, 1);
     };
 
+    // Progress is measured against `.story-intro` (not the whole page), so adding
+    // more scrollable content below (e.g. manifesto) does not stretch story timings.
+    const introEl = mount.closest(".story-intro");
     const updateProgress = () => {
+      if (introEl) {
+        const rect = introEl.getBoundingClientRect();
+        const scrolled = Math.max(0, -rect.top);
+        const scrollable = Math.max(1, introEl.offsetHeight - window.innerHeight);
+        state.targetProgress = clamp01(scrolled / scrollable);
+        return;
+      }
       const scrollRange = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
       state.targetProgress = clamp01(window.scrollY / scrollRange);
     };
@@ -228,14 +257,15 @@ function ScrollStoryScene() {
         return;
       }
 
-      state.progress = lerp(state.progress, state.targetProgress, 0.1);
+      state.progress = lerp(state.progress, state.targetProgress, 0.14);
+      const storyP = clamp01(state.progress / Math.max(STORY_STEPS_SCROLL_FRAC, 0.0001));
       const stageSpan = 1 / (STORY_STEPS.length - 1);
       const stageIndex = Math.min(
         STORY_STEPS.length - 2,
-        Math.floor(state.progress / Math.max(stageSpan, 0.0001)),
+        Math.floor(storyP / Math.max(stageSpan, 0.0001)),
       );
       const localStart = stageIndex * stageSpan;
-      const localProgress = smoothstep((state.progress - localStart) / Math.max(stageSpan, 0.0001));
+      const localProgress = smoothstep((storyP - localStart) / Math.max(stageSpan, 0.0001));
       const current = STORY_STEPS[stageIndex];
       const next = STORY_STEPS[stageIndex + 1];
 
@@ -248,10 +278,18 @@ function ScrollStoryScene() {
       const aspect = state.viewportWidth / Math.max(state.viewportHeight, 1);
       const floatAmp = aspect < 0.72 ? minDim * 0.008 : minDim * 0.012;
       const float = Math.sin(time * 0.0012 + state.progress * Math.PI * 3) * floatAmp;
-      const finalReveal = smoothstep((state.progress - 0.62) / 0.14);
-      // Extra dwell after the last story line (~0.833) before name lockup; was ~0.09 of scroll, too tight.
-      const identityReveal = smoothstep((state.progress - 0.965) / 0.028);
-      const storyFade = smoothstep((state.progress - 0.94) / 0.05);
+      // Spider image ramps in with “LETS DO THIS ONE MORE TIME” (late storyP), then stays through scroll dwell.
+      const finalReveal = smoothstep((storyP - 0.72) / 0.13);
+      const scrollP = state.progress;
+      // Tight tail: fade WebGL story text, then name — spiderpunk img stays at full opacity once revealed.
+      const storyFade = smoothstep((scrollP - 0.692) / 0.034);
+      const identityReveal = smoothstep((scrollP - 0.724) / 0.036);
+      // "AND I" appears under POLIMERA on further scroll.
+      const andIReveal = smoothstep((scrollP - 0.84) / 0.06);
+      // Whole intro layer (rain + spider + text) fades out at the very end so the
+      // keywords section below can take over cleanly.
+      const introExit = smoothstep((scrollP - 0.94) / 0.06);
+      const introAlive = 1 - introExit;
       const storyOpacity = 1 - storyFade;
 
       const portrait = aspect < 0.82;
@@ -274,10 +312,16 @@ function ScrollStoryScene() {
       const imgSlide = minDim * 0.055;
       const idSlideX = minDim * 0.05;
       const idSlideY = minDim * 0.012;
-      image.style.opacity = `${finalReveal}`;
+      // Fade the spider + identity lockup at the end of the intro,
+      // but leave the binary rain alive so it scrolls off continuously
+      // into the keywords section's rain layer below (no black gap).
+      image.style.opacity = `${finalReveal * introAlive}`;
       image.style.transform = `translate3d(${lerp(-imgSlide, 0, finalReveal)}px, 0, 0) scale(${lerp(0.94, 1.02, finalReveal)})`;
-      identityMotion.style.opacity = `${identityReveal}`;
+      identityMotion.style.opacity = `${identityReveal * introAlive}`;
       identityMotion.style.transform = `translate3d(${lerp(idSlideX, 0, identityReveal)}px, ${lerp(idSlideY, 0, identityReveal)}px, 0)`;
+      // andIMotion already cascades through identityMotion's opacity.
+      andIMotion.style.opacity = `${andIReveal}`;
+      andIMotion.style.transform = `translate3d(0, ${lerp(14, 0, andIReveal)}px, 0)`;
 
       renderer.render(scene, camera);
       animationFrame = window.requestAnimationFrame(render);
@@ -357,6 +401,7 @@ function ScrollStoryScene() {
             <span>ABHINAV</span>
             <span>POLIMERA</span>
           </div>
+          <div ref={andIMotionRef} className="identity-tail">AND I</div>
         </div>
       </div>
     </div>
