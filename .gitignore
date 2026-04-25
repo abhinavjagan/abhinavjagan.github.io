@@ -1,6 +1,6 @@
-node_modules/
-dist/
-assets/
+node_modules
+dist
+.DS_Store
 *.log
-*.err.log
-*.out.log
+.env
+.env.*
