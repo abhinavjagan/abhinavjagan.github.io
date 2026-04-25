@@ -191,10 +191,15 @@ function DynamicTextFlow() {
 
     const syncPointer = (event) => {
       const rect = host.getBoundingClientRect();
+      const relX = event.clientX - rect.left;
+      const relY = event.clientY - rect.top;
+      const active =
+        relX >= 0 && relX <= rect.width && relY >= 0 && relY <= rect.height;
+
       pointerRef.current = {
-        x: event.clientX - rect.left,
-        y: event.clientY - rect.top,
-        active: true,
+        x: clamp(relX, 0, rect.width),
+        y: clamp(relY, 0, rect.height),
+        active,
       };
       scheduleRender();
     };
@@ -227,15 +232,15 @@ function DynamicTextFlow() {
 
     const resizeObserver = new ResizeObserver(scheduleRender);
     resizeObserver.observe(host);
-    host.addEventListener("pointermove", syncPointer);
-    host.addEventListener("pointerleave", clearPointer);
+    window.addEventListener("pointermove", syncPointer);
+    window.addEventListener("pointerleave", clearPointer);
     window.addEventListener("resize", scheduleRender);
 
     return () => {
       cancelled = true;
       resizeObserver.disconnect();
-      host.removeEventListener("pointermove", syncPointer);
-      host.removeEventListener("pointerleave", clearPointer);
+      window.removeEventListener("pointermove", syncPointer);
+      window.removeEventListener("pointerleave", clearPointer);
       window.removeEventListener("resize", scheduleRender);
       if (frameRef.current) {
         window.cancelAnimationFrame(frameRef.current);

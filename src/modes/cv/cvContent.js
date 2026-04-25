@@ -16,9 +16,9 @@ export const GITHUB_HREF = "https://github.com/abhinavjagan";
 export const EMAIL_HREF = "mailto:abhinavpolimera@gmail.com";
 
 export const introParagraphs = [
-  "I'm an SDE 2 at Cisco Systems, working on next-generation 8000 series routers with a focus on traffic mirroring systems. In just 1.5 years, I've delivered major customer-facing features for clients like Microsoft and SoftBank, including a first-of-its-kind GUE encapsulation capability not currently offered by competing routers. My work spans deep systems engineering, cross-functional execution, and contributions to AI-driven initiatives across the organization, where I've been recognized for performance and early leadership.",
+  "I'm an SDE 2 at Cisco Systems, working on next-generation 8000 series routers with a focus on traffic mirroring systems. I've delivered major customer-facing features for clients like Microsoft and SoftBank, including a first-of-its-kind GUE encapsulation capability not currently offered by competing routers. My work spans deep systems engineering, cross-functional execution, and contributions to AI-driven initiatives across the organization, where I've been recognized for performance and early leadership.",
   "I graduated in Computer Science from Birla Institute of Technology and Science, Hyderabad (CGPA 8.2), after securing an All India Rank of 5321 in JEE Advanced among 1.3 million candidates. I've published research papers in international conferences, worked closely with faculty on advanced projects, and served as a Teaching Assistant for Internet of Things based on academic merit.",
-  "At my core, I'm a builder, driven to create across domains, from robotics and coding to art and product design. My competitive edge comes from experiences like state-level chess, karate, and high-altitude treks, while my curiosity fuels hands-on exploration, whether it's 3D printing, sim racing, or experimenting with new creative mediums.",
+  "At my core, I'm a builder, driven to create across domains, from exploring computer graphics, computer vision and coding to art and product design. My competitive edge comes from experiences like state-level chess, karate, and high-altitude treks, while my curiosity fuels hands-on exploration, whether it's 3D printing, sim racing, or experimenting with new creative mediums.",
 ];
 
 export const experienceHeading =
