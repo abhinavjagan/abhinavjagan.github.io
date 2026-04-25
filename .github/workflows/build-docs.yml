@@ -1,0 +1,38 @@
+# GitHub Pages serves /docs on main — it must contain `vite build` output, not raw src/.
+# This workflow rebuilds docs/ whenever application source changes and commits the result.
+name: Build docs for GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "docs/**"
+      - ".github/**"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-docs-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build:gh
+
+      - name: Commit updated docs/
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: rebuild docs for GitHub Pages"
+          file_pattern: "docs/**"
