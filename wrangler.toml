@@ -1,0 +1,9 @@
+# Cloudflare Pages / Wrangler configuration
+# See: https://developers.cloudflare.com/pages/functions/wrangler-configuration/
+
+# This should match your Cloudflare Pages project name.
+name = "abhinavjagan-github-io"
+compatibility_date = "2026-04-25"
+
+# Vite build output
+pages_build_output_dir = "dist"

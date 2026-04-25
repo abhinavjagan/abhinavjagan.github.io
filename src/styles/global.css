@@ -77,6 +77,7 @@ body {
   background: #000;
   color: #c6c6c6;
   font-family: "Bitcount Grid Double", monospace;
+  overflow-x: hidden;
 }
 
 .story-page {
@@ -730,8 +731,23 @@ body {
 }
 
 @media (max-width: 900px) {
+  .crisp-page {
+    padding-top: 0.2rem;
+  }
+
   .crisp-content {
     width: 100%;
+    margin-top: 0;
+  }
+
+  .crisp-name {
+    font-size: clamp(2.1rem, 7vw + 0.8rem, 3.2rem);
+  }
+
+  .crisp-lead {
+    white-space: normal;
+    max-width: 36rem;
+    margin-inline: auto;
   }
 }
 
@@ -743,4 +759,71 @@ body {
 .crisp-page .binary-canvas {
   opacity: 0.86;
   filter: brightness(0.97) contrast(1.06);
+}
+
+@media (max-width: 760px) {
+  .crisp-links-rail {
+    top: calc(max(0.5rem, env(safe-area-inset-top, 0px)) + 2.45rem);
+    right: max(0.55rem, env(safe-area-inset-right, 0px));
+  }
+
+  .crisp-links-vertical a {
+    min-width: 6rem;
+    padding: 0.3rem 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .crisp-grid {
+    gap: 0.6rem;
+  }
+
+  .crisp-block {
+    padding: 0.78rem 0.82rem;
+  }
+
+  .crisp-block h2 {
+    font-size: clamp(1.2rem, 1.8vw + 0.86rem, 1.5rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .mode-picker-overlay {
+    justify-content: flex-start;
+    padding-top: max(0.75rem, env(safe-area-inset-top, 0px));
+  }
+
+  .mode-picker-grid {
+    gap: 0.6rem;
+  }
+
+  .mode-card {
+    padding: 0.85rem 0.82rem;
+  }
+
+  .crisp-links-rail {
+    right: max(0.42rem, env(safe-area-inset-right, 0px));
+  }
+
+  .crisp-links-vertical a {
+    min-width: 5.4rem;
+    font-size: 0.82rem;
+    padding: 0.26rem 0.45rem;
+  }
+
+  .crisp-hero {
+    padding-inline: 0;
+  }
+
+  .crisp-name {
+    font-size: clamp(1.9rem, 9.2vw, 2.65rem);
+  }
+
+  .crisp-citizenship {
+    font-size: 0.92rem;
+  }
+
+  .crisp-lead {
+    font-size: 0.9rem;
+    line-height: 1.35;
+  }
 }

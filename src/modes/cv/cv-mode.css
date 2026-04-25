@@ -754,16 +754,22 @@
     width: auto;
     flex-direction: row;
     justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.55rem;
     margin-bottom: 2rem;
     border-radius: 1.5rem;
+    padding: 0.8rem;
   }
 
   .cv-mode-root .content {
-    padding-left: 1rem;
+    padding-left: 0;
   }
 
   .cv-mode-root .side-nav {
     flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.45rem;
   }
 
   .cv-mode-root .side-nav a,
@@ -781,6 +787,7 @@
   .cv-mode-root .content {
     width: min(100% - 1rem, 1260px);
     padding-top: 0.7rem;
+    padding-bottom: 5rem;
   }
 
   .cv-mode-root .side-nav {
@@ -791,5 +798,52 @@
   .cv-mode-root .sidebar-cta {
     width: 100%;
     justify-content: center;
+  }
+}
+
+@media (max-width: 560px) {
+  .cv-mode-root .content {
+    width: calc(100% - 0.75rem);
+    padding-top: 0.55rem;
+    padding-bottom: 4.2rem;
+  }
+
+  .cv-mode-root .hero-restored {
+    min-height: auto;
+    padding-top: 0.35rem;
+  }
+
+  .cv-mode-root .hero-title-top {
+    font-size: clamp(2.65rem, 13vw, 3.8rem);
+  }
+
+  .cv-mode-root .hero-title-main {
+    font-size: clamp(3rem, 15vw, 4.45rem);
+  }
+
+  .cv-mode-root .intro,
+  .cv-mode-root .timeline-list,
+  .cv-mode-root .project-card p,
+  .cv-mode-root .contact-band p {
+    font-size: 0.95rem;
+    line-height: 1.58;
+  }
+
+  .cv-mode-root .timeline-section,
+  .cv-mode-root .projects-section,
+  .cv-mode-root .contact-band {
+    margin-top: 3.6rem;
+  }
+
+  .cv-mode-root .timeline-card,
+  .cv-mode-root .project-card,
+  .cv-mode-root .contact-band {
+    padding: 1rem;
+    border-radius: 1.1rem;
+  }
+
+  .cv-mode-root .cv-mode-back {
+    padding: 0.3rem 0.5rem;
+    font-size: 0.95rem;
   }
 }
