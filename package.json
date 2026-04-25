@@ -10,6 +10,7 @@
     "dev": "vite",
     "start": "vite",
     "build": "vite build",
+    "build:gh": "VITE_BASE_PATH=./ vite build --outDir docs",
     "preview": "vite preview"
   },
   "dependencies": {

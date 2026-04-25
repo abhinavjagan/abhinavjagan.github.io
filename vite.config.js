@@ -34,6 +34,7 @@ export default defineConfig(({ command }) => ({
   },
   build: {
     target: "es2022",
-    sourcemap: true,
+    // GitHub Pages artifacts are public; keep deployed bundles lean.
+    sourcemap: false,
   },
 }));
