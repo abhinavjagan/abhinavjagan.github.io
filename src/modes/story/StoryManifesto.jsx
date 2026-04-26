@@ -1,32 +1,45 @@
 import { useEffect, useRef } from "react";
+import { GITHUB_HREF, projects } from "../cv/cvContent.js";
 
-const LEARN_STEPS = ["Curiosity", "Deconstruction", "Obsession", "Building", "Mastery"];
+const SHIP_PROJECT_LINKS = {
+  playlistify: projects.find((p) => p.name === "Playlistify"),
+  drone: projects.find((p) => p.name === "Remote Drone Surveillance"),
+  nerf: projects.find(
+    (p) =>
+      p.name ===
+      "Performance Assessment of Neural Radiance Fields and Photogrammetry",
+  ),
+};
 
-const DOMAINS = [
-  "Chess",
-  "Karate",
-  "Robotics",
-  "Filming",
-  "Art",
-  "3D Printing",
-  "Cars",
-  "Sim Racing",
-  "Trekking",
-  "Research",
-  "Networking",
-  "AI",
-];
+/** Gentle tilt cycle — layout is flex-wrap so nothing overlaps. */
+const UNIVERSE_ROT = [-2, 1.2, -0.8, 1.8, -1.4, 0.6, -1, 1.5, -2.2, 0.9];
 
-const BEYOND = [
-  "Athlete",
-  "State-level chess",
-  "Blue belt karate",
-  "4 countries",
-  "Himalayan treks",
-  "World's largest cave ecosystem",
-  "Art gifted to celebrities",
-  "Home 3D printer",
-  "Sim racing rig",
+/**
+ * Domains + life threads — order mixes cyan tags and orange lines; CSS lays out as wrapped rows.
+ * kind "tag" = short pillar labels; "line" = fuller phrases. wide = own centered row (long copy).
+ * longTag = cyan tag with larger max-width + wrap (no ellipsis).
+ */
+const UNIVERSE_CLOUD = [
+  { text: "Chess — 1600 ELO", kind: "tag" },
+  { text: "Athlete", kind: "line" },
+  { text: "Karate — blue belt", kind: "tag" },
+  { text: "State-level chess", kind: "line" },
+  { text: "NAS", kind: "tag" },
+  { text: "Filming", kind: "tag" },
+  { text: "Travelled 4 countries", kind: "line" },
+  { text: "Art — sketching → vector", kind: "tag" },
+  { text: "Himalayan treks", kind: "line" },
+  { text: "3D Printing", kind: "tag" },
+  { text: "Art - presented to celebrities", kind: "line" },
+  {
+    text: "Trekked world's largest cave ecosystem",
+    kind: "line",
+    wide: true,
+  },
+  { text: "Sim racing rig", kind: "line" },
+  { text: "Research — 2 international conference papers", kind: "line" },
+  { text: "Networking — traffic mirroring", kind: "tag", longTag: true },
+  { text: "AI", kind: "tag" },
 ];
 
 export default function StoryManifesto() {
@@ -51,7 +64,7 @@ export default function StoryManifesto() {
           }
         });
       },
-      { threshold: 0.18, rootMargin: "0px 0px -8% 0px" },
+      { threshold: 0.12, rootMargin: "0px 0px -6% 0px" },
     );
     items.forEach((el) => io.observe(el));
     return () => io.disconnect();
@@ -65,51 +78,53 @@ export default function StoryManifesto() {
     >
       <div className="manifesto-inner">
         <section className="mfst-block mfst-os" aria-label="My Operating System">
-          <div className="mfst-os-boot reveal">
-            <header className="mfst-os-header">
-              <p className="mfst-section-label">My Operating System</p>
-            </header>
+          <div className="mfst-os-slide mfst-os-slide--boot mfst-os-boot reveal">
+            <div className="mfst-os-slide-inner">
+              <header className="mfst-os-header">
+                <p className="mfst-section-label">My Operating System</p>
+              </header>
 
-            <div
-              className="mfst-os-terminal"
-              role="img"
-              aria-label="Boot sequence: modules Obsess, Explore, Commit, Think, and Ship loaded."
-            >
-              <div className="mfst-os-term-chrome" aria-hidden="true">
-                <span />
-                <span />
-                <span />
-                <p>~/abhinav.os</p>
+              <div
+                className="mfst-os-terminal"
+                role="img"
+                aria-label="Boot sequence: modules Obsess, Explore, Commit, Think, and Ship loaded."
+              >
+                <div className="mfst-os-term-chrome" aria-hidden="true">
+                  <span />
+                  <span />
+                  <span />
+                  <p>~/abhinav.os</p>
+                </div>
+                <pre className="mfst-os-term-body" aria-hidden="true">
+                  <span className="mfst-os-line mfst-os-line--prompt">
+                    <span className="mfst-os-caret">&gt;</span>
+                    <span className="mfst-os-typed">run Abhinav.OS</span>
+                    <span className="mfst-os-cursor" />
+                  </span>
+                  <span className="mfst-os-line mfst-os-line--sys">
+                    Initializing modules…
+                  </span>
+                  <span className="mfst-os-line mfst-os-line--ok">
+                    <span className="mfst-os-check">[✓]</span> Obsess()
+                  </span>
+                  <span className="mfst-os-line mfst-os-line--ok">
+                    <span className="mfst-os-check">[✓]</span> Explore()
+                  </span>
+                  <span className="mfst-os-line mfst-os-line--ok">
+                    <span className="mfst-os-check">[✓]</span> Commit()
+                  </span>
+                  <span className="mfst-os-line mfst-os-line--ok">
+                    <span className="mfst-os-check">[✓]</span> Think()
+                  </span>
+                  <span className="mfst-os-line mfst-os-line--ok">
+                    <span className="mfst-os-check">[✓]</span> Ship()
+                  </span>
+                </pre>
               </div>
-              <pre className="mfst-os-term-body" aria-hidden="true">
-                <span className="mfst-os-line mfst-os-line--prompt">
-                  <span className="mfst-os-caret">&gt;</span>
-                  <span className="mfst-os-typed">run Abhinav.OS</span>
-                  <span className="mfst-os-cursor" />
-                </span>
-                <span className="mfst-os-line mfst-os-line--sys">
-                  Initializing modules…
-                </span>
-                <span className="mfst-os-line mfst-os-line--ok">
-                  <span className="mfst-os-check">[✓]</span> Obsess()
-                </span>
-                <span className="mfst-os-line mfst-os-line--ok">
-                  <span className="mfst-os-check">[✓]</span> Explore()
-                </span>
-                <span className="mfst-os-line mfst-os-line--ok">
-                  <span className="mfst-os-check">[✓]</span> Commit()
-                </span>
-                <span className="mfst-os-line mfst-os-line--ok">
-                  <span className="mfst-os-check">[✓]</span> Think()
-                </span>
-                <span className="mfst-os-line mfst-os-line--ok">
-                  <span className="mfst-os-check">[✓]</span> Ship()
-                </span>
-              </pre>
             </div>
           </div>
 
-          <div className="mfst-os-row mfst-os-row--pair reveal">
+          <div className="mfst-os-slide reveal">
             <article className="mfst-os-card">
               <header>
                 <span className="mfst-os-fn">Obsess()</span>
@@ -127,7 +142,9 @@ export default function StoryManifesto() {
                 </ul>
               </div>
             </article>
+          </div>
 
+          <div className="mfst-os-slide reveal">
             <article className="mfst-os-card">
               <header>
                 <span className="mfst-os-fn">Explore()</span>
@@ -154,7 +171,7 @@ export default function StoryManifesto() {
             </article>
           </div>
 
-          <div className="mfst-os-row mfst-os-row--pair reveal">
+          <div className="mfst-os-slide reveal">
             <article className="mfst-os-card">
               <header>
                 <span className="mfst-os-fn">Commit()</span>
@@ -169,7 +186,9 @@ export default function StoryManifesto() {
                 </ul>
               </div>
             </article>
+          </div>
 
+          <div className="mfst-os-slide reveal">
             <article className="mfst-os-card">
               <header>
                 <span className="mfst-os-fn">Think()</span>
@@ -177,8 +196,12 @@ export default function StoryManifesto() {
               </header>
               <div className="mfst-os-detail">
                 <ul>
-                  <li>JEE Advanced &mdash; Rank 5,321 / 1,300,000</li>
-                  <li>B.E. CS, BITS Hyderabad &mdash; 8.2&nbsp;CGPA</li>
+                  <li>
+                    JEE Advanced &mdash; All India Rank of 5,321 / 1,300,000
+                  </li>
+                  <li>
+                    B.E. CS, BITS Pilani, Hyderabad campus &mdash; 8.2&nbsp;CGPA
+                  </li>
                   <li>2 international research papers</li>
                   <li>Teaching Assistant &mdash; Internet of Things</li>
                 </ul>
@@ -186,21 +209,83 @@ export default function StoryManifesto() {
             </article>
           </div>
 
-          <div className="mfst-os-row mfst-os-row--ship reveal">
-            <article className="mfst-os-card mfst-os-card--ship">
+          <div className="mfst-os-slide reveal">
+            <article className="mfst-os-card mfst-os-card--ship mfst-os-card--ship-detailed">
               <header>
                 <span className="mfst-os-badge">Primary module</span>
                 <span className="mfst-os-fn">Ship()</span>
                 <p className="mfst-os-tagline">Build things that matter.</p>
               </header>
-              <div className="mfst-os-detail">
-                <ul>
-                  <li>SDE&nbsp;2 @ Cisco Systems</li>
-                  <li>Built GUE-based traffic mirroring (first-of-its-kind)</li>
-                  <li>Delivered for Microsoft, SoftBank</li>
-                  <li>Led end-to-end feature ownership across Cisco&nbsp;8000</li>
+              <div className="mfst-os-detail mfst-os-ship-narrative">
+                <p>
+                  At Cisco, I&rsquo;ve been working deep in distributed systems on the
+                  Cisco&nbsp;8000 routers. One of the biggest things I owned was rethinking
+                  how packet mirroring works at scale&mdash;I designed a new ERSPAN approach
+                  using GUE instead of GRE, and drove it end-to-end for a real Microsoft use
+                  case. It wasn&rsquo;t just a design exercise&mdash;it shipped with
+                  hardware-backed performance improvements. This is a one-of-one feature not
+                  offered by any other competitor in the market.
+                </p>
+                <p>
+                  I&rsquo;ve also worked on bringing up egress traffic mirroring on
+                  Silicon One routers, helping match older NCS systems so customers like
+                  SoftBank could migrate smoothly. We managed to cut delivery time
+                  significantly by leaning heavily on AI during development and debugging.
+                </p>
+                <p>
+                  Beyond core networking, I&rsquo;ve been exploring how AI fits into
+                  networking infrastructure itself. I was part of a small team building an
+                  IaaS-style system to deploy quantized ML models directly on
+                  routers&mdash;we took it from idea to a working prototype that reached
+                  customer evaluation.
+                </p>
+                <p>
+                  I tend to build tools when something feels inefficient. That led me to
+                  create internal systems&mdash;from a leadership metrics analyzer to a
+                  drag-and-drop traffic mirroring platform&mdash;focused on making complex
+                  workflows simpler and faster.
+                </p>
+                <p className="mfst-os-ship-outside-lead">
+                  Outside of work, I like experimenting across domains:
+                </p>
+                <ul className="mfst-os-ship-narrative-points">
                   <li>
-                    Built AI-driven infra &amp; tooling (productivity + deployment)
+                    I also built Playlistify, a small web product on top of the Spotify API
+                    that turns your liked songs into clean, shareable playlists
+                    instantly&mdash;because that friction annoyed me enough to fix it.{" "}
+                    <a
+                      href={SHIP_PROJECT_LINKS.playlistify?.link ?? GITHUB_HREF}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mfst-os-inline-link"
+                    >
+                      {SHIP_PROJECT_LINKS.playlistify?.ctaLabel ?? "GitHub"}
+                    </a>
+                  </li>
+                  <li>
+                    On the ML side, I worked on a drone-based surveillance pipeline that
+                    detects and flags suspicious activity in real time using YOLO and image
+                    processing techniques.{" "}
+                    <a
+                      href={SHIP_PROJECT_LINKS.drone?.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mfst-os-inline-link"
+                    >
+                      {SHIP_PROJECT_LINKS.drone?.ctaLabel ?? "Publication"}
+                    </a>
+                  </li>
+                  <li>
+                    And on the research front, I explored 3D reconstruction&mdash;comparing
+                    NeRFs and photogrammetry&mdash;and presented that work at ICAART.{" "}
+                    <a
+                      href={SHIP_PROJECT_LINKS.nerf?.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mfst-os-inline-link"
+                    >
+                      {SHIP_PROJECT_LINKS.nerf?.ctaLabel ?? "Publication"}
+                    </a>
                   </li>
                 </ul>
               </div>
@@ -208,137 +293,51 @@ export default function StoryManifesto() {
           </div>
         </section>
 
-        <section className="mfst-block mfst-loop reveal">
-          <p className="mfst-section-label">How I learn</p>
-          <ol className="mfst-loop-steps">
-            {LEARN_STEPS.map((step, i) => (
-              <li key={step}>
-                <span className="mfst-step-n">{String(i + 1).padStart(2, "0")}</span>
-                <span className="mfst-step-text">{step}</span>
-              </li>
-            ))}
-          </ol>
-          <p className="mfst-block-caption">
-            I break complexity into something I can build.
-          </p>
-        </section>
-
-        <section className="mfst-block mfst-mosaic reveal">
-          <p className="mfst-section-label">Where the same mind shows up</p>
-          <ul className="mfst-mosaic-grid">
-            {DOMAINS.map((d) => (
-              <li key={d}>{d}</li>
-            ))}
-          </ul>
-          <p className="mfst-block-caption">Different mediums. Same obsession.</p>
-        </section>
-
-        <section className="mfst-block mfst-proof reveal">
-          <p className="mfst-section-label">Proof, not claims</p>
-          <div className="mfst-proof-grid">
-            <article>
-              <h3>Academic</h3>
-              <ul>
-                <li>
-                  <span className="mfst-proof-key">JEE Advanced</span>
-                  <span className="mfst-proof-val">Rank 5,321 / 1,300,000</span>
-                </li>
-                <li>
-                  <span className="mfst-proof-key">Degree</span>
-                  <span className="mfst-proof-val">B.E. CS, BITS Hyderabad</span>
-                </li>
-                <li>
-                  <span className="mfst-proof-key">CGPA</span>
-                  <span className="mfst-proof-val">8.2 / 10</span>
-                </li>
-                <li>
-                  <span className="mfst-proof-key">Research</span>
-                  <span className="mfst-proof-val">2 international papers</span>
-                </li>
-              </ul>
-            </article>
-            <article>
-              <h3>Leadership</h3>
-              <ul>
-                <li>
-                  <span className="mfst-proof-key">Teaching</span>
-                  <span className="mfst-proof-val">TA, Internet of Things</span>
-                </li>
-                <li>
-                  <span className="mfst-proof-key">Selection</span>
-                  <span className="mfst-proof-val">Academic excellence</span>
-                </li>
-                <li>
-                  <span className="mfst-proof-key">Collaboration</span>
-                  <span className="mfst-proof-val">Senior faculty projects</span>
-                </li>
-                <li>
-                  <span className="mfst-proof-key">Olympiads</span>
-                  <span className="mfst-proof-val">Multiple medals</span>
-                </li>
-              </ul>
-            </article>
-            <article>
-              <h3>Industry</h3>
-              <ul>
-                <li>
-                  <span className="mfst-proof-key">Role</span>
-                  <span className="mfst-proof-val">SDE II · Cisco 8000</span>
-                </li>
-                <li>
-                  <span className="mfst-proof-key">Growth</span>
-                  <span className="mfst-proof-val">SDE I → II in 1.5 yrs</span>
-                </li>
-                <li>
-                  <span className="mfst-proof-key">Customers</span>
-                  <span className="mfst-proof-val">Microsoft · SoftBank</span>
-                </li>
-                <li>
-                  <span className="mfst-proof-key">Recognition</span>
-                  <span className="mfst-proof-val">AI initiatives lead</span>
-                </li>
-              </ul>
-            </article>
-          </div>
-        </section>
-
-        <section className="mfst-block mfst-impact reveal">
-          <p className="mfst-section-label">What I build</p>
-          <article className="mfst-impact-card">
-            <p className="mfst-impact-eyebrow">First-of-its-kind</p>
-            <h3 className="mfst-impact-title">
-              GUE-encap traffic mirroring on Cisco 8000 routers
-            </h3>
-            <ul className="mfst-impact-tags">
-              <li>New capability</li>
-              <li>Real customer impact</li>
-              <li>Built at scale</li>
-            </ul>
-            <p className="mfst-impact-note">
-              Shipped to enterprise customers. No other router vendor offers it today.
+        <section
+          className="mfst-block mfst-universe reveal"
+          aria-label="One engine, multiple domains — interests and life threads"
+        >
+          <header className="mfst-universe-hero">
+            <p className="mfst-universe-tagline">One engine, multiple domains</p>
+            <p className="mfst-section-label mfst-universe-sub">Same obsession, different surfaces</p>
+            <p className="mfst-universe-lede">
+              A loose map of where the same wiring shows up.
             </p>
-          </article>
-        </section>
+          </header>
 
-        <section className="mfst-block mfst-beyond reveal">
-          <p className="mfst-section-label">Beyond work</p>
-          <ul className="mfst-chip-row">
-            {BEYOND.map((b) => (
-              <li key={b}>{b}</li>
+          <div className="mfst-universe-cloud">
+            {UNIVERSE_CLOUD.map((item, i) => (
+              <span
+                key={`${item.text}-${i}`}
+                className={[
+                  "mfst-universe-bubble",
+                  `mfst-universe-bubble--${item.kind}`,
+                  item.wide ? "mfst-universe-bubble--wide" : "",
+                  item.longTag ? "mfst-universe-bubble--tag-long" : "",
+                ]
+                  .filter(Boolean)
+                  .join(" ")}
+                style={{
+                  "--bubble-rot": `${UNIVERSE_ROT[i % UNIVERSE_ROT.length]}deg`,
+                  "--stagger": i * 0.028,
+                }}
+              >
+                {item.text}
+              </span>
             ))}
-          </ul>
-          <p className="mfst-block-caption">
+          </div>
+
+          <p className="mfst-universe-caption">
             I do not only build systems. I live inside challenges.
           </p>
-        </section>
 
-        <footer className="mfst-block mfst-closing reveal">
-          <p className="mfst-closing-line">
-            I get deeply invested in complex things, and I stay until they become
-            something real.
-          </p>
-          <p className="mfst-closing-tag">Same engine. Different domains.</p>
-        </footer>
+          <footer className="mfst-universe-outro">
+            <p className="mfst-universe-outro-line">
+              I get deeply invested in complex things, and I stay until they become
+              something real.
+            </p>
+          </footer>
+        </section>
       </div>
     </section>
   );

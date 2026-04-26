@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import CrispPortfolio from "../modes/crisp/CrispPortfolio.jsx";
 import CvModePage from "../modes/cv/CvModePage.jsx";
 import ModeHome from "../modes/home/ModeHome.jsx";
+import StoryEssayReader from "../modes/story/StoryEssayReader.jsx";
 import StoryExperience from "../modes/story/StoryExperience.jsx";
 
 const STORAGE_KEY = "portfolio-view-mode";
@@ -47,23 +48,25 @@ function App() {
     window.scrollTo(0, 0);
   }, []);
 
-  if (!mode) {
-    return <ModeHome onSelectMode={selectMode} />;
-  }
+  const main =
+    !mode ? (
+      <ModeHome onSelectMode={selectMode} />
+    ) : mode === "story" ? (
+      <StoryExperience onBack={goHome} />
+    ) : mode === "crisp" ? (
+      <CrispPortfolio onBack={goHome} />
+    ) : mode === "cv" ? (
+      <CvModePage onBack={goHome} />
+    ) : (
+      <ModeHome onSelectMode={selectMode} />
+    );
 
-  if (mode === "story") {
-    return <StoryExperience onBack={goHome} />;
-  }
-
-  if (mode === "crisp") {
-    return <CrispPortfolio onBack={goHome} />;
-  }
-
-  if (mode === "cv") {
-    return <CvModePage onBack={goHome} />;
-  }
-
-  return <ModeHome onSelectMode={selectMode} />;
+  return (
+    <div className="app-shell" data-app-mode={mode ?? "home"}>
+      <div className="app-shell-main">{main}</div>
+      <StoryEssayReader />
+    </div>
+  );
 }
 
 export default App;

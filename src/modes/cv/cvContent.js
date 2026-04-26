@@ -51,20 +51,9 @@ export const experience = [
     pointsLayout: "project-cards",
     points: [
       "Designed a next-generation ERSPAN solution using GUE encapsulation as a scalable alternative to GRE, leading end-to-end delivery for Microsoft-driven packet mirroring requirements with hardware-accelerated performance gains.",
-      "Led end-to-end delivery of egress traffic mirroring for Cisco 8000 (Silicon One) routers, helping achieve parity with NCS 5000 capabilities for SoftBank's migration while reducing delivery time by 60%.",
+      "Led end-to-end delivery of egress traffic mirroring for Cisco 8000 (Silicon One) routers, helping achieve parity with NCS 5000 capabilities for SoftBank's migration while reducing delivery time by 60% with heavy AI adoption.",
       "Contributed to an AI-driven Infrastructure-as-a-Service initiative for deploying quantized ML models on Cisco routers, moving from concept to prototype in a 4-member core team and reaching customer evaluation.",
-      "Owned traffic mirroring feature delivery, debugging, and POC work across SPAN, Lawful Intercept, and NetFlow on Cisco 8000, including multi-platform topology bring-up for upcoming hardware.",
       "Built scalable automation infrastructure and AI-powered internal tools, including a leadership metrics analyzer and a drag-and-drop traffic mirroring platform with MCP-based modular components.",
-    ],
-  },
-  {
-    company: "Cisco Systems",
-    role: "Technical Intern, Distributed Systems organization",
-    period: "Jan 2024 - Jun 2024",
-    mode: "On-site",
-    points: [
-      "Optimized router OS feature testing and deployment through improved test design and parallel execution, earning an internal Cisco excellence award.",
-      "Led the automation lifecycle in Python for NTP VRF OpenConfig feature delivery.",
     ],
   },
   {

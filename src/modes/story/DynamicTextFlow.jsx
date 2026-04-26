@@ -93,6 +93,8 @@ function DynamicTextFlow() {
   const preparedRef = useRef(null);
   const preparedFontKeyRef = useRef("");
   const pointerRef = useRef({ x: 0, y: 0, active: false });
+  /** Last known viewport pointer (for recomputing host-relative coords on scroll). */
+  const lastClientRef = useRef({ x: 0, y: 0, has: false });
   const frameRef = useRef(0);
   const [lines, setLines] = useState([]);
 
@@ -189,13 +191,26 @@ function DynamicTextFlow() {
       setLines(nextLines);
     };
 
-    const syncPointer = (event) => {
+    const applyPointerClient = (clientX, clientY) => {
       const rect = host.getBoundingClientRect();
-      const relX = event.clientX - rect.left;
-      const relY = event.clientY - rect.top;
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      // Host can be taller than the viewport (e.g. long manifesto). Treat pointer as
+      // active when it lies in the intersection of host and viewport.
+      const interLeft = Math.max(rect.left, 0);
+      const interRight = Math.min(rect.right, vw);
+      const interTop = Math.max(rect.top, 0);
+      const interBottom = Math.min(rect.bottom, vh);
       const active =
-        relX >= 0 && relX <= rect.width && relY >= 0 && relY <= rect.height;
+        interRight > interLeft &&
+        interBottom > interTop &&
+        clientX >= interLeft &&
+        clientX <= interRight &&
+        clientY >= interTop &&
+        clientY <= interBottom;
 
+      const relX = clientX - rect.left;
+      const relY = clientY - rect.top;
       pointerRef.current = {
         x: clamp(relX, 0, rect.width),
         y: clamp(relY, 0, rect.height),
@@ -204,7 +219,17 @@ function DynamicTextFlow() {
       scheduleRender();
     };
 
+    const syncPointer = (event) => {
+      lastClientRef.current = {
+        x: event.clientX,
+        y: event.clientY,
+        has: true,
+      };
+      applyPointerClient(event.clientX, event.clientY);
+    };
+
     const clearPointer = () => {
+      lastClientRef.current = { x: 0, y: 0, has: false };
       pointerRef.current = { ...pointerRef.current, active: false };
       scheduleRender();
     };
@@ -232,16 +257,27 @@ function DynamicTextFlow() {
 
     const resizeObserver = new ResizeObserver(scheduleRender);
     resizeObserver.observe(host);
+    const onScrollOrResize = () => {
+      const last = lastClientRef.current;
+      if (last.has) {
+        applyPointerClient(last.x, last.y);
+      } else {
+        scheduleRender();
+      }
+    };
+
     window.addEventListener("pointermove", syncPointer);
     window.addEventListener("pointerleave", clearPointer);
-    window.addEventListener("resize", scheduleRender);
+    window.addEventListener("resize", onScrollOrResize);
+    window.addEventListener("scroll", onScrollOrResize, { passive: true });
 
     return () => {
       cancelled = true;
       resizeObserver.disconnect();
       window.removeEventListener("pointermove", syncPointer);
       window.removeEventListener("pointerleave", clearPointer);
-      window.removeEventListener("resize", scheduleRender);
+      window.removeEventListener("resize", onScrollOrResize);
+      window.removeEventListener("scroll", onScrollOrResize);
       if (frameRef.current) {
         window.cancelAnimationFrame(frameRef.current);
       }

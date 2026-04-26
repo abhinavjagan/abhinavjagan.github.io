@@ -40,7 +40,12 @@ export default function StoryExperience({ onBack }) {
 
       <StoryKeywordsScene />
 
-      <StoryManifesto />
+      <div className="story-manifesto-shell">
+        <div className="story-manifesto-binary binary-canvas" aria-hidden="true">
+          <DynamicTextFlow />
+        </div>
+        <StoryManifesto />
+      </div>
     </main>
   );
 }
