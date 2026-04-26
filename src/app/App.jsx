@@ -61,10 +61,12 @@ function App() {
       <ModeHome onSelectMode={selectMode} />
     );
 
+  const showEssay = mode === null || mode === "story";
+
   return (
     <div className="app-shell" data-app-mode={mode ?? "home"}>
       <div className="app-shell-main">{main}</div>
-      <StoryEssayReader />
+      {showEssay ? <StoryEssayReader /> : null}
     </div>
   );
 }
