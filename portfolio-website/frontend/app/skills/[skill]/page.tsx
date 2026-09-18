@@ -3,13 +3,15 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { generateMetadata as generateMetaData } from '@/utils/seo';
 import { PROJECTS } from '@/utils/constants';
-import { SKILL_CATALOG, findSkillBySlug, toSlug } from '@/utils/skills';
+import { SKILL_CATALOG, findSkillBySlug, formatSkillCategory, toSlug } from '@/utils/skills';
 
 export const metadata: Metadata = generateMetaData(
   'Skill',
   'Projects matched to a specific skill',
   '/skills'
 );
+
+metadata.robots = { index: false, follow: true };
 
 export function generateStaticParams() {
   return SKILL_CATALOG.map((skill) => ({
@@ -36,7 +38,7 @@ export default function SkillDetailPage({
         <div>
           <h1 className="mono-title text-6xl mb-3">{skill.name}</h1>
           <p className="text-white/75 max-w-2xl">
-            {skill.category.replace(/([A-Z])/g, ' $1').trim()} projects matched to this skill.
+            {formatSkillCategory(skill.category)} projects matched to this skill.
           </p>
         </div>
 
@@ -44,14 +46,16 @@ export default function SkillDetailPage({
           <Link href="/skills" className="hover:text-white transition-colors">
             Back to Skills
           </Link>
-          <Link href={`/projects?skill=${params.skill}`} className="hover:text-white transition-colors">
-            View in Projects
+          <Link href="/projects" className="hover:text-white transition-colors">
+            View all Projects
           </Link>
         </div>
       </div>
 
       <div className="mt-10 mb-6">
-        <span className="text-[10px] uppercase tracking-[0.14em] text-white/60">{skill.category}</span>
+        <span className="text-[10px] uppercase tracking-[0.14em] text-white/60">
+          {formatSkillCategory(skill.category)}
+        </span>
       </div>
 
       {matchingProjects.length === 0 ? (
@@ -90,4 +94,3 @@ export default function SkillDetailPage({
     </div>
   );
 }
-

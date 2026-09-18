@@ -34,6 +34,8 @@ export default function AsciiBackdrop() {
     let pointerY = window.innerHeight * 0.28;
     let lastPointerX = pointerX;
     let lastPointerY = pointerY;
+    let running = false;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const resize = () => {
       const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
@@ -81,6 +83,7 @@ export default function AsciiBackdrop() {
     };
 
     const draw = () => {
+      if (!running) return;
       tick += 0.011;
       context.clearRect(0, 0, window.innerWidth, window.innerHeight);
       context.fillStyle = '#000';
@@ -146,6 +149,22 @@ export default function AsciiBackdrop() {
       animation = window.requestAnimationFrame(draw);
     };
 
+    const start = () => {
+      if (running || reducedMotion || document.hidden) return;
+      running = true;
+      draw();
+    };
+
+    const stop = () => {
+      running = false;
+      window.cancelAnimationFrame(animation);
+    };
+
+    const handleVisibility = () => {
+      if (document.hidden) stop();
+      else start();
+    };
+
     resize();
     for (let i = 0; i < 7; i += 1) {
       addSmoke(
@@ -155,13 +174,21 @@ export default function AsciiBackdrop() {
       );
     }
     window.addEventListener('resize', resize);
-    window.addEventListener('pointermove', movePointer);
-    draw();
+    document.addEventListener('visibilitychange', handleVisibility);
+
+    if (reducedMotion) {
+      context.fillStyle = '#000';
+      context.fillRect(0, 0, window.innerWidth, window.innerHeight);
+    } else {
+      window.addEventListener('pointermove', movePointer);
+      start();
+    }
 
     return () => {
-      window.cancelAnimationFrame(animation);
+      stop();
       window.removeEventListener('resize', resize);
       window.removeEventListener('pointermove', movePointer);
+      document.removeEventListener('visibilitychange', handleVisibility);
     };
   }, []);
 

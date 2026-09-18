@@ -4,28 +4,25 @@ import { notFound } from 'next/navigation';
 import { generateMetadata as generateMetaData } from '@/utils/seo';
 import { PROJECTS } from '@/utils/constants';
 
-// Slugify function
-function toSlug(str: string): string {
-  return str
-    .toLowerCase()
-    .replace(/\s+/g, '-')
-    .replace(/[^\w-]/g, '');
-}
-
 // Find project by slug
 function findProjectBySlug(slug: string) {
-  return PROJECTS.find((p) => toSlug(p.title) === slug);
+  return PROJECTS.find((p) => p.slug === slug);
 }
 
-export const metadata: Metadata = generateMetaData(
-  'Project',
-  'Detailed project information',
-  '/projects'
-);
+export function generateMetadata({
+  params,
+}: {
+  params: { project: string };
+}): Metadata {
+  const project = findProjectBySlug(params.project);
+  if (!project) return generateMetaData('Project not found', 'Project not found', '/projects');
+
+  return generateMetaData(project.title, project.description, `/projects/${project.slug}`);
+}
 
 export function generateStaticParams() {
   return PROJECTS.map((project) => ({
-    project: toSlug(project.title),
+    project: project.slug,
   }));
 }
 
@@ -66,6 +63,20 @@ export default function ProjectDetailPage({
           ))}
         </div>
       )}
+
+      <div className="mt-10 ascii-panel project-proof-row">
+        <span>{project.status}</span>
+        <span>{project.proof}</span>
+      </div>
+
+      <div className="mt-10">
+        <h2 className="text-lg font-mono mb-4 text-white/75">Work completed</h2>
+        <ul className="project-bullets">
+          {project.details.map((detail) => (
+            <li key={detail}>{detail}</li>
+          ))}
+        </ul>
+      </div>
 
       {project.skills && (
         <div className="mt-12">

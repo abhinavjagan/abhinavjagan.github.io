@@ -2,13 +2,15 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { generateMetadata as generateMetaData } from '@/utils/seo';
 import { SKILLS } from '@/utils/constants';
-import { toSlug } from '@/utils/skills';
+import { formatSkillCategory, toSlug, type SkillCategory } from '@/utils/skills';
 
 export const metadata: Metadata = generateMetaData(
   'Skills',
   'Browse my skills and see matching projects',
   '/skills'
 );
+
+metadata.robots = { index: false, follow: true };
 
 export default function SkillsPage() {
   return (
@@ -21,7 +23,7 @@ export default function SkillsPage() {
         {Object.entries(SKILLS).map(([category, items]) => (
           <section key={category}>
             <h2 className="text-white/60 uppercase tracking-[0.2em] text-xs mb-4">
-              {category.replace(/([A-Z])/g, ' $1').trim()}
+              {formatSkillCategory(category as SkillCategory)}
             </h2>
             <div className="flex flex-wrap gap-x-6 gap-y-3">
               {items.map((skill) => (
@@ -36,4 +38,3 @@ export default function SkillsPage() {
     </div>
   );
 }
-

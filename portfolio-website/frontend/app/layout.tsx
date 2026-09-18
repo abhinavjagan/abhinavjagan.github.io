@@ -8,8 +8,8 @@ import { generateMetadata as generateMetaData } from '@/utils/seo';
 
 export const metadata: Metadata = {
   ...generateMetaData(
-    'Home',
-    'Black and white portfolio website for Abhinav Jagan Polimera',
+    'AI Applications, Infrastructure & Distributed Systems',
+    'Software engineer building reliable AI applications and the distributed, networked systems beneath them.',
     '/'
   ),
 };
@@ -33,9 +33,10 @@ export default function RootLayout({
         <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23000'/><text x='12' y='73' font-size='68' font-family='monospace' font-weight='bold' fill='%23fff'>A</text></svg>" />
       </head>
       <body className="noise-overlay">
+        <a href="#main-content" className="skip-link">Skip to content</a>
         <AsciiBackdrop />
         <Header />
-        <main className="relative z-10">{children}</main>
+        <main id="main-content" className="relative z-10">{children}</main>
         <Footer />
       </body>
     </html>

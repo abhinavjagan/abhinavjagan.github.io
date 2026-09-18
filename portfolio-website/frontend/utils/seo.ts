@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
 
 export const generateMetadata = (title: string, description: string, path: string): Metadata => {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://abhinavjagan.github.io";
   
   return {
     title: `${title} | Abhinav Jagan Polimera`,
     description,
-    keywords: "software developer, distributed systems, machine learning, full-stack",
+    keywords: "AI infrastructure engineer, AI systems engineer, distributed systems, agent infrastructure, network software, ML systems",
     openGraph: {
       title: `${title} | Abhinav Jagan Polimera`,
       description,
@@ -47,7 +47,7 @@ export const generateMetadata = (title: string, description: string, path: strin
 };
 
 export const structuredData = (type: string, data: any) => {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://abhinavjagan.github.io";
   
   if (type === "person") {
     return {
@@ -55,16 +55,14 @@ export const structuredData = (type: string, data: any) => {
       "@type": "Person",
       name: "Abhinav Jagan Polimera",
       url: baseUrl,
-      jobTitle: "Software Developer",
+      jobTitle: "Software Developer 2",
       sameAs: [
-        "https://linkedin.com/in/abhinavpolimera",
+        "https://www.linkedin.com/in/abhinav-jagan-polimera-411b431b1/",
         "https://github.com/abhinavjagan",
-        "https://twitter.com/abhinavpolimera",
       ],
       contactPoint: {
         "@type": "ContactPoint",
-        telephone: "+1-XXX-XXX-XXXX",
-        contactType: "General",
+        contactType: "professional inquiries",
         email: "abhinavpolimera@gmail.com",
       },
     };
