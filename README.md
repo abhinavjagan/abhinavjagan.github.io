@@ -5,7 +5,7 @@ Source for [abhinavjagan.github.io](https://abhinavjagan.github.io), an evidence
 The site emphasizes inspectable proof:
 
 - A public local-first multi-agent application with architecture, tests, and security boundaries
-- Sanitized professional case studies spanning AI developer infrastructure, constrained inference, router systems, and telemetry
+- Completed professional work spanning AI developer infrastructure, constrained inference, router systems, and telemetry
 - Two published AI and computer-vision research projects with DOI links
 - A concise account of the networking and distributed-systems foundation behind the AI-infrastructure direction
 
@@ -34,7 +34,7 @@ The Next.js static export is written to `portfolio-website/frontend/out`. The ro
 
 ## Content and Evidence Policy
 
-Portfolio content lives in `portfolio-website/frontend/utils/constants.ts`. Professional work is deliberately generalized. Do not add customer names, confidential code, unreleased product details, or metrics without a source, calculation, ownership review, and employer-safe disclosure decision.
+Portfolio content lives in `portfolio-website/frontend/utils/constants.ts`. The candidate has approved the supplied professional details, customer names, and metrics for public use. Keep every claim source-grounded and interview-defensible; never add confidential code, credentials, or unreleased material, and document the source, calculation, and ownership for quantified results.
 
 ## Main Paths
 
