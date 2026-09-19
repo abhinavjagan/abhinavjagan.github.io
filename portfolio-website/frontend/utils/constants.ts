@@ -113,6 +113,28 @@ export const PROJECTS = [
     skills: ['Python', 'Agentic Workflows', 'LLM Evaluation', 'FastAPI', 'Docker'],
   },
   {
+    slug: 'spotify-liked-songs-to-playlist',
+    title: 'From Liked Songs to a Shareable Playlist',
+    description:
+      "When a friend asked what I listened to, I realized my Spotify Liked Songs library had grown to nearly 2,000 tracks but still wasn't shareable—so I built the missing workflow.",
+    details: [
+      'Turned a real usability gap—one-tap likes but repetitive, multi-step playlist additions—into a working personal utility.',
+      'Used Spotify OAuth, Spotipy, and the Spotify Web API to retrieve saved tracks in pages, create a playlist, and add songs in batches.',
+      'Replaced the song-by-song workflow with a reusable path from a private music library to a playlist I could share.',
+    ],
+    tech: ['Python', 'Flask', 'Spotipy', 'Spotify Web API', 'OAuth 2.0'],
+    links: [
+      {
+        label: 'Source',
+        href: 'https://github.com/abhinavjagan/SavedToPlaylist-Spotify',
+      },
+    ],
+    category: 'Personal Automation',
+    status: 'Personal utility · started 2023',
+    proof: 'Public source code · built from a problem I had',
+    skills: ['Python'],
+  },
+  {
     slug: 'semantic-code-knowledge-graph',
     title: 'Semantic Code Knowledge Graph',
     description:
