@@ -42,7 +42,7 @@ export default function Home() {
               distributed infrastructure.
             </p>
             <div className="mt-10 flex flex-wrap gap-6 text-xs uppercase tracking-[0.2em] text-white/70">
-              <Link href="/#projects">Selected work</Link>
+              <Link href="/#projects">Projects</Link>
               <a href={SOCIAL_LINKS.github} target="_blank" rel="noreferrer">GitHub</a>
               <Link href="/resume.pdf" target="_blank" rel="noreferrer">Resume</Link>
               <Link href="/#contact">Contact</Link>
@@ -64,7 +64,7 @@ export default function Home() {
         <section className="container pb-12" aria-label="Proof points">
           <div className="proof-strip">
             <div><strong>2+ years</strong><span>systems engineering at Cisco</span></div>
-            <div><strong>Public build</strong><span>multi-agent AI application</span></div>
+            <div><strong>AI systems</strong><span>multi-agent application</span></div>
             <div><strong>2 papers</strong><span>AI / computer-vision research</span></div>
             <div><strong>U.S. citizen</strong><span>no sponsorship required</span></div>
           </div>
@@ -80,8 +80,7 @@ export default function Home() {
             <div className="md:col-span-8 ascii-panel">
               <pre>{String.raw`> current: software engineer @ Cisco
 > direction: AI applications + infrastructure
-> advantage: networking + distributed systems
-> search: high-ownership U.S. startup teams`}</pre>
+> advantage: networking + distributed systems`}</pre>
               <div className="space-y-4 text-white/75 leading-relaxed mt-6">
                 <p>
                   I like owning the full path from a user problem to a system that behaves reliably in production:
@@ -105,14 +104,14 @@ export default function Home() {
           <div className="section-rule mb-10" />
           <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div>
-              <p className="ascii-kicker">Proof over keywords</p>
-              <h2 className="mono-title text-5xl md:text-6xl">Selected work</h2>
+              <p className="ascii-kicker">Built across the stack</p>
+              <h2 className="mono-title text-5xl md:text-6xl">Projects</h2>
               <p className="mt-6 text-white/72 max-w-2xl">
-                Public builds, completed professional systems work, and published research. Each item focuses on the
-                engineering problem, the work completed, and the resulting outcome.
+                AI applications, developer infrastructure, distributed systems, and applied research—each grounded
+                in the engineering problem, the system built, and the resulting outcome.
               </p>
             </div>
-            <Link href="/projects" className="ascii-stamp">/all-work</Link>
+            <Link href="/projects" className="ascii-stamp">/all-projects</Link>
           </div>
           <ProjectAccordion />
         </section>
@@ -154,7 +153,7 @@ export default function Home() {
           <p className="ascii-kicker">Working toolkit</p>
           <h2 className="mono-title text-5xl md:text-6xl mb-4">Tools with a trail</h2>
           <p className="text-white/72 max-w-2xl mb-8">
-            A deliberately smaller list tied to professional work, public source code, or published research.
+            A focused toolkit grounded in systems I have built, shipped, or researched.
           </p>
           <div className="ascii-skill-grid">
             {Object.entries(SKILLS).map(([category, items]) => (

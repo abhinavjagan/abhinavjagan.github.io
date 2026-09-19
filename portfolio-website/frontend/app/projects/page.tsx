@@ -8,7 +8,7 @@ export const dynamic = 'force-static';
 
 export const metadata: Metadata = generateMetaData(
   'Projects',
-  'Public builds, completed professional systems work, and published AI and computer-vision research.',
+  'AI applications, developer infrastructure, distributed systems, and applied AI and computer-vision research.',
   '/projects'
 );
 
@@ -20,7 +20,7 @@ export default function ProjectsPage() {
         <div>
           <h1 className="mono-title text-6xl mb-3">Projects</h1>
           <p className="text-white/75 max-w-2xl">
-            Public builds, completed professional systems work, and published research with concrete engineering outcomes.
+            AI applications, developer infrastructure, distributed systems, and applied research with concrete engineering outcomes.
           </p>
         </div>
 
