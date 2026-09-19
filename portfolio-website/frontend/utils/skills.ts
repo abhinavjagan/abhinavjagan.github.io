@@ -6,7 +6,7 @@ export const SKILL_CATEGORY_LABELS: Record<SkillCategory, string> = {
   aiSystems: 'AI systems',
   infrastructureAndDistributedSystems: 'Infrastructure and distributed systems',
   engineering: 'Engineering',
-  computerVisionAnd3D: 'Computer vision and 3D',
+  computerVisionAnd3D: 'Vision, graphics and spatial computing',
 };
 
 export const formatSkillCategory = (category: SkillCategory) =>

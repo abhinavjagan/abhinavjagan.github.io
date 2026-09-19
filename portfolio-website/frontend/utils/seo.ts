@@ -6,7 +6,7 @@ export const generateMetadata = (title: string, description: string, path: strin
   return {
     title: `${title} | Abhinav Jagan Polimera`,
     description,
-    keywords: "AI infrastructure engineer, AI systems engineer, distributed systems, agent infrastructure, network software, ML systems",
+    keywords: "AI infrastructure engineer, AI systems engineer, distributed systems, agent infrastructure, network software, ML systems, computer vision, geospatial data, photogrammetry, neural radiance fields",
     openGraph: {
       title: `${title} | Abhinav Jagan Polimera`,
       description,
@@ -56,6 +56,19 @@ export const structuredData = (type: string, data: any) => {
       name: "Abhinav Jagan Polimera",
       url: baseUrl,
       jobTitle: "Software Developer 2",
+      knowsAbout: [
+        "AI applications",
+        "AI infrastructure",
+        "Distributed systems",
+        "Network software",
+        "Computer vision",
+        "Geospatial data",
+        "Image processing",
+        "Photogrammetry",
+        "Neural Radiance Fields",
+        "Computer graphics",
+        "Internet of Things",
+      ],
       sameAs: [
         "https://www.linkedin.com/in/abhinav-jagan-polimera-411b431b1/",
         "https://github.com/abhinavjagan",

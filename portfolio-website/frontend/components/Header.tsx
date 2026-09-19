@@ -23,8 +23,8 @@ export default function Header() {
     { label: 'About', href: '/#about' },
     { label: 'Projects', href: '/#projects' },
     { label: 'Experience', href: '/#experience' },
+    { label: 'Academics', href: '/#academics' },
     { label: 'Toolkit', href: '/#skills' },
-    { label: 'Beyond', href: '/#extra' },
     { label: 'Contact', href: '/#contact' },
   ];
 

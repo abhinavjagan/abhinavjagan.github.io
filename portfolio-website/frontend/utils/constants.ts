@@ -10,6 +10,46 @@ export const SOCIAL_LINKS = {
   email: 'abhinavpolimera@gmail.com',
 };
 
+export const PROFILE_FACTS = {
+  proofPoints: [
+    { value: '2+ years', label: 'systems engineering at Cisco' },
+    { value: '2 papers', label: 'AI / computer-vision research' },
+    { value: 'AIR 5,321', label: 'JEE Advanced · ≈1.5M entrance pool' },
+    { value: '2,380 / 2,400', label: 'SAT Subject Tests · single attempt' },
+  ],
+  range: [
+    {
+      index: '01',
+      label: 'Applied domains',
+      title: 'Vision, spatial data, and 3D reconstruction',
+      description:
+        'Hands-on work with geospatial data, image processing, photogrammetry, and Neural Radiance Fields—connecting raw imagery to measurable 3D representations.',
+      tags: ['Geospatial data', 'Image processing', 'Photogrammetry', 'NeRF'],
+    },
+    {
+      index: '02',
+      label: 'Coursework + teaching',
+      title: 'Computing across visual and physical systems',
+      description:
+        'Coursework in Computer Vision, Computer Graphics, and Internet of Things, followed by selection as a teaching assistant on academic merit.',
+      tags: ['Computer vision', 'Computer graphics', 'Internet of Things', 'Teaching'],
+    },
+  ],
+  academics: [
+    {
+      value: 'AIR 5,321',
+      label: 'JEE Advanced',
+      detail:
+        'Ranked 5,321 nationally after advancing through an engineering-entrance pool of approximately 1.5 million students.',
+    },
+    {
+      value: '2,380 / 2,400',
+      label: 'SAT Subject Tests',
+      detail: 'Physics, Chemistry, and Mathematics · single attempt.',
+    },
+  ],
+} as const;
+
 export const EXPERIENCE = [
   {
     company: 'Cisco Systems',
@@ -144,13 +184,13 @@ export const PROJECTS = [
     slug: 'nerf-vs-photogrammetry',
     title: 'NeRF and Photogrammetry for 3D Reconstruction',
     description:
-      'Co-authored an ICAART 2024 paper comparing neural radiance fields and photogrammetry against ground-truth object dimensions.',
+      'First-authored an ICAART 2024 paper comparing neural radiance fields and photogrammetry against ground-truth object dimensions.',
     details: [
-      'Co-authored a study reconstructing a man-made antenna and a natural bush with learned and classical 3D pipelines.',
+      'First-authored a study reconstructing a man-made antenna and a natural bush with learned and classical 3D pipelines.',
       'The reported geometric-attribute results put NeRF between 99.157% and 99.89% accuracy, compared with photogrammetry between 87.91% and 98.99% across the evaluated dimensions.',
       'Presented the work at ICAART 2024 and documented reconstruction quality, input-image count, rendering behavior, and applications to complex natural geometry.',
     ],
-    tech: ['Python', 'NeRF', 'Photogrammetry', '3D Reconstruction'],
+    tech: ['Python', 'NeRF', 'Photogrammetry', 'Image Processing', '3D Reconstruction'],
     links: [
       {
         label: 'Published paper',
@@ -164,7 +204,16 @@ export const PROJECTS = [
     category: 'Research · Published',
     status: 'Peer-reviewed',
     proof: 'ICAART 2024 proceedings · DOI 10.5220/0012396700003636',
-    skills: ['Python', 'Computer Vision', 'Neural Radiance Fields'],
+    skills: [
+      'Python',
+      'Computer Vision',
+      'Image Processing',
+      'Geospatial Data',
+      'Photogrammetry',
+      'Neural Radiance Fields',
+      'Computer Graphics',
+      '3D Reconstruction',
+    ],
   },
   {
     slug: 'uav-computer-vision',
@@ -207,5 +256,14 @@ export const SKILLS = {
     'Test Automation',
   ],
   engineering: ['Python', 'C/C++', 'Shell', 'FastAPI', 'Docker'],
-  computerVisionAnd3D: ['Computer Vision', 'Object Detection', 'Neural Radiance Fields'],
+  computerVisionAnd3D: [
+    'Computer Vision',
+    'Image Processing',
+    'Geospatial Data',
+    'Object Detection',
+    'Photogrammetry',
+    'Neural Radiance Fields',
+    'Computer Graphics',
+    '3D Reconstruction',
+  ],
 };

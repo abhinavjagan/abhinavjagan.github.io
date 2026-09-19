@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import ProjectAccordion from '@/components/ProjectAccordion';
 import { generateMetadata as generateMetaData, structuredData } from '@/utils/seo';
-import { EXPERIENCE, SKILLS, SOCIAL_LINKS } from '@/utils/constants';
+import { EXPERIENCE, PROFILE_FACTS, SKILLS, SOCIAL_LINKS } from '@/utils/constants';
 import { formatSkillCategory, type SkillCategory } from '@/utils/skills';
 
 export const metadata: Metadata = generateMetaData(
@@ -63,10 +63,12 @@ export default function Home() {
 
         <section className="container pb-12" aria-label="Proof points">
           <div className="proof-strip">
-            <div><strong>2+ years</strong><span>systems engineering at Cisco</span></div>
-            <div><strong>AI systems</strong><span>multi-agent application</span></div>
-            <div><strong>2 papers</strong><span>AI / computer-vision research</span></div>
-            <div><strong>U.S. citizen</strong><span>no sponsorship required</span></div>
+            {PROFILE_FACTS.proofPoints.map((proofPoint) => (
+              <div key={proofPoint.value}>
+                <strong>{proofPoint.value}</strong>
+                <span>{proofPoint.label}</span>
+              </div>
+            ))}
           </div>
         </section>
 
@@ -145,6 +147,47 @@ export default function Home() {
                 </ul>
               </article>
             ))}
+          </div>
+        </section>
+
+        <section id="academics" className="container py-20 scroll-mt-24">
+          <div className="section-rule mb-10" />
+          <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="ascii-kicker">Academic foundation</p>
+              <h2 className="mono-title text-5xl md:text-6xl">Breadth with proof</h2>
+              <p className="mt-5 max-w-2xl text-white/72 leading-relaxed">
+                Coursework and applied work across computer vision, graphics, connected systems, geospatial data,
+                and 3D reconstruction—useful context for roles where AI has to understand the physical world.
+              </p>
+            </div>
+            <span className="ascii-stamp">/profile/technical-range</span>
+          </div>
+
+          <div className="profile-signal-grid mt-10">
+            {PROFILE_FACTS.range.map((signal) => (
+              <article key={signal.index} className="ascii-panel profile-signal-card">
+                <span>{signal.index} / {signal.label}</span>
+                <h3>{signal.title}</h3>
+                <p>{signal.description}</p>
+                <div className="signal-tags" aria-label={`${signal.label} topics`}>
+                  {signal.tags.map((tag) => <span key={tag}>{tag}</span>)}
+                </div>
+              </article>
+            ))}
+
+            <article className="ascii-panel academic-score-card">
+              <span>03 / Academic signal</span>
+              <div className="academic-score-list">
+                {PROFILE_FACTS.academics.map((academic) => (
+                  <div key={academic.label}>
+                    <strong>{academic.value}</strong>
+                    <h3>{academic.label}</h3>
+                    <p>{academic.detail}</p>
+                  </div>
+                ))}
+              </div>
+            </article>
           </div>
         </section>
 
