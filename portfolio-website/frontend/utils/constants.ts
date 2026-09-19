@@ -88,13 +88,13 @@ export const EXPERIENCE = [
 export const PROJECTS = [
   {
     slug: 'x-agent-local-multi-agent-system',
-    title: 'X-Agent: Local Multi-Agent Content Workflow',
+    title: 'X-Agent: Private Persona-to-Post Studio',
     description:
-      'Built a local-first AI application that turned a consented persona interview into grounded drafts through retrieval, optional research, critique, and human approval.',
+      'Built a local-first writing studio that interviews a consenting person, captures how they speak, and turns a topic into copy-ready X posts they can review, edit, or regenerate before publishing themselves.',
     details: [
-      'Built a LangGraph workflow for persona retrieval, optional web research, drafting, formatting, consistency critique, and human-in-the-loop review.',
-      'Implemented the system with FastAPI, Ollama, Docker, local embeddings, and a browser UI while keeping publication behind explicit human approval.',
-      'Documented architecture, testing, privacy boundaries, SSRF/DoS hardening, and native-versus-container runtime tradeoffs.',
+      'Turned a resumable text or voice interview into a structured persona, an editable voice profile, and a local retrieval index over the person\'s own answers.',
+      'Grounded each post or thread in relevant interview excerpts and optional web sources, then used a persona-consistency critic to regenerate weak voice matches.',
+      'Kept persona data local and publishing human-controlled, with no X credentials or auto-posting, server-enforced disclosure, and hardened opt-in research.',
     ],
     tech: ['Python', 'LangGraph', 'FastAPI', 'Ollama', 'Docker', 'Embeddings'],
     links: [
@@ -110,7 +110,7 @@ export const PROJECTS = [
     category: 'AI Systems',
     status: 'AI application',
     proof: 'Code, tests, architecture, and setup instructions',
-    skills: ['Python', 'Agentic Workflows', 'LLM Evaluation', 'FastAPI', 'Docker'],
+    skills: ['Python', 'Agentic Workflows', 'Persona Evaluation', 'FastAPI', 'Docker'],
   },
   {
     slug: 'spotify-liked-songs-to-playlist',
@@ -241,9 +241,9 @@ export const PROJECTS = [
     slug: 'uav-computer-vision',
     title: 'UAV-Based Suspicious-Activity Detection',
     description:
-      'Co-authored an IEEE-published study of a UAV surveillance system that used object detection and activity-duration thresholds to flag suspicious actions.',
+      'First-authored an IEEE-published paper on a UAV surveillance system that used Python/YOLO object detection and activity-duration thresholds to flag suspicious actions at remote locations.',
     details: [
-      'Studied real-time object detection and classification from UAV video using Python and YOLO.',
+      'Implemented real-time object detection and classification from UAV video using Python and YOLO.',
       'Designed threshold logic based on object counts and activity duration.',
       'Published the work in IEEE conference proceedings.',
     ],
