@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import ProjectAccordion from '@/components/ProjectAccordion';
-import SystemMap from '@/components/SystemMap';
 import { generateMetadata as generateMetaData, structuredData } from '@/utils/seo';
 import { EXPERIENCE, SKILLS, SOCIAL_LINKS } from '@/utils/constants';
 import { formatSkillCategory, type SkillCategory } from '@/utils/skills';
@@ -48,7 +48,17 @@ export default function Home() {
               <Link href="/#contact">Contact</Link>
             </div>
           </div>
-          <SystemMap />
+          <figure className="hero-porsche">
+            <Image
+              src="/ascii-new.png"
+              alt="Black-and-white Porsche 911 GT3 RS poster"
+              width={1280}
+              height={1600}
+              priority
+              sizes="(max-width: 900px) calc(100vw - 1.25rem), 42vw"
+              className="hero-porsche-image"
+            />
+          </figure>
         </section>
 
         <section className="container pb-12" aria-label="Proof points">
