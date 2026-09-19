@@ -208,8 +208,7 @@ export default function Home() {
           </div>
 
           <p className="beyond-footnote">
-            Also: school-level competitive chess and karate training through blue belt. Original photo essays and
-            documented 3D builds will be added as the work is ready.
+            Also: represented my school in competitive chess and trained in karate through blue belt.
           </p>
         </section>
 
